@@ -1,6 +1,6 @@
 [package]
 name = "copilot_chat"
-version = "0.3.2"
+version = "2026.3.3"
 description = "A Tauri App"
 authors = ["bigduu"]
 edition = "2021"
