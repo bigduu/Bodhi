@@ -30,7 +30,7 @@ describe("MetricsService", () => {
 
     expect(summary.total_sessions).toBe(4);
     expect(global.fetch).toHaveBeenCalledWith(
-      "http://127.0.0.1:8080/api/v1/metrics/summary?start_date=2026-02-01&end_date=2026-02-10",
+      "http://127.0.0.1:9562/api/v1/metrics/summary?start_date=2026-02-01&end_date=2026-02-10",
       expect.objectContaining({ method: "GET" }),
     );
   });
@@ -64,7 +64,7 @@ describe("MetricsService", () => {
 
     expect(daily).toHaveLength(1);
     expect(global.fetch).toHaveBeenCalledWith(
-      "http://127.0.0.1:8080/api/v1/metrics/daily?days=14&granularity=weekly",
+      "http://127.0.0.1:9562/api/v1/metrics/daily?days=14&granularity=weekly",
       expect.objectContaining({ method: "GET" }),
     );
   });

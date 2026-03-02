@@ -58,7 +58,7 @@ claude --dangerously-skip-permissions "
 3. 修复任何不匹配的路径
 
 ## Step 5: 运行测试
-1. 先启动后端：cargo run -p web_service_standalone -- --port 8080 --data-dir /tmp/test-data
+1. 先启动后端：cargo run -p web_service_standalone -- --port 9562 --data-dir /tmp/test-data
 2. 运行 yarn test:e2e 验证修复
 3. 修复任何失败的测试
 

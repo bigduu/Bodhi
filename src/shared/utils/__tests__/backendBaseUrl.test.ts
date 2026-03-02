@@ -15,15 +15,15 @@ describe("backendBaseUrl", () => {
   });
 
   it("normalizes by trimming and removing trailing slashes", () => {
-    expect(normalizeBackendBaseUrl(" http://localhost:8080/v1/ ")).toBe(
-      "http://localhost:8080/v1",
+    expect(normalizeBackendBaseUrl(" http://localhost:9562/v1/ ")).toBe(
+      "http://localhost:9562/v1",
     );
   });
 
   it("uses fallback default when no env and no override exists", () => {
     clearBackendBaseUrlOverride();
-    expect(getDefaultBackendBaseUrl()).toBe("http://127.0.0.1:8080/v1");
-    expect(getBackendBaseUrlSync()).toBe("http://127.0.0.1:8080/v1");
+    expect(getDefaultBackendBaseUrl()).toBe("http://127.0.0.1:9562/v1");
+    expect(getBackendBaseUrlSync()).toBe("http://127.0.0.1:9562/v1");
   });
 
   it("uses env default when set (and normalizes it)", () => {
@@ -42,19 +42,19 @@ describe("backendBaseUrl", () => {
   it("persists an override and uses it in preference to defaults", () => {
     expect(hasBackendBaseUrlOverride()).toBe(false);
 
-    setBackendBaseUrl("http://localhost:8080/v1/");
+    setBackendBaseUrl("http://localhost:9562/v1/");
     expect(hasBackendBaseUrlOverride()).toBe(true);
-    expect(getBackendBaseUrlSync()).toBe("http://localhost:8080/v1");
+    expect(getBackendBaseUrlSync()).toBe("http://localhost:9562/v1");
 
     clearBackendBaseUrlOverride();
     expect(hasBackendBaseUrlOverride()).toBe(false);
   });
 
   it("builds backend URLs with a single slash separator", () => {
-    setBackendBaseUrl("http://localhost:8080/v1/");
-    expect(buildBackendUrl("/models")).toBe("http://localhost:8080/v1/models");
+    setBackendBaseUrl("http://localhost:9562/v1/");
+    expect(buildBackendUrl("/models")).toBe("http://localhost:9562/v1/models");
     expect(buildBackendUrl("workspace/validate")).toBe(
-      "http://localhost:8080/v1/workspace/validate",
+      "http://localhost:9562/v1/workspace/validate",
     );
   });
 });

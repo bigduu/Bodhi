@@ -137,11 +137,11 @@ test.describe('Docker Deployment', () => {
 
   test('should have correct port exposed', async () => {
     const result = execSync(
-      `docker port ${CONTAINER_NAME} 8080`,
+      `docker port ${CONTAINER_NAME} 9562`,
       { encoding: 'utf-8' }
     );
 
-    expect(result).toContain('0.0.0.0:8080');
+    expect(result).toContain('0.0.0.0:9562');
   });
 
   test('should serve frontend', async ({ page }) => {
@@ -296,7 +296,7 @@ test.describe('Docker Deployment', () => {
       method: 'OPTIONS',
       headers: {
         'Access-Control-Request-Method': 'POST',
-        'Origin': 'http://localhost:8080',
+        'Origin': 'http://localhost:9562',
       },
     });
 
@@ -329,12 +329,12 @@ test.describe('Docker Deployment', () => {
     );
 
     expect(result).toContain('BAMBOO_DATA_DIR=/data');
-    expect(result).toContain('BAMBOO_PORT=8080');
+    expect(result).toContain('BAMBOO_PORT=9562');
   });
 
   test('should be accessible from host', async ({ page }) => {
     // Make request from test runner (host machine)
-    const response = await page.request.get('http://localhost:8080/api/v1/health');
+    const response = await page.request.get('http://localhost:9562/api/v1/health');
 
     expect(response.ok()).toBeTruthy();
   });

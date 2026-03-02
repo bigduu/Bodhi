@@ -3,11 +3,11 @@ import { test, expect } from '@playwright/test';
 test.describe('Browser Mode Specific Tests', () => {
   test.use({ baseURL: 'http://localhost:1420' }); // Vite dev server
 
-  test('should connect to backend on port 8080', async ({ page }) => {
+  test('should connect to backend on port 9562', async ({ page }) => {
     await page.goto('/');
 
     // Check backend health
-    const healthResponse = await page.request.get('http://localhost:8080/api/v1/health');
+    const healthResponse = await page.request.get('http://localhost:9562/api/v1/health');
     expect(healthResponse.ok()).toBeTruthy();
   });
 
@@ -138,7 +138,7 @@ test.describe('Browser Mode Specific Tests', () => {
 
   test('should handle CORS properly', async ({ page }) => {
     // Make request from different origin
-    const response = await page.request.get('http://localhost:8080/api/v1/health');
+    const response = await page.request.get('http://localhost:9562/api/v1/health');
 
     // Should have CORS headers
     const corsHeader = response.headers()['access-control-allow-origin'];
@@ -147,7 +147,7 @@ test.describe('Browser Mode Specific Tests', () => {
 
   test('should show proper error for missing backend', async ({ page, context }) => {
     // Block backend requests
-    await context.route('**/localhost:8080/**', route => route.abort());
+    await context.route('**/localhost:9562/**', route => route.abort());
 
     await page.goto('/');
 

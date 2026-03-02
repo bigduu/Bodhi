@@ -5,8 +5,8 @@ import { defineConfig, devices } from '@playwright/test';
  *
  * Usage:
  * - Browser mode: E2E_BASE_URL=http://localhost:1420 yarn test:e2e
- * - Docker mode: E2E_BASE_URL=http://localhost:8080 yarn test:e2e
- * - With server auto-start: E2E_START_SERVER="cargo run -p web_service_standalone -- --port 8080" yarn test:e2e
+ * - Docker mode: E2E_BASE_URL=http://localhost:9562 yarn test:e2e
+ * - With server auto-start: E2E_START_SERVER="cargo run -p web_service_standalone -- --port 9562" yarn test:e2e
  */
 
 const suite = process.env.E2E_SUITE ?? 'all';
@@ -28,7 +28,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: process.env.E2E_BASE_URL || 'http://localhost:8080',
+    baseURL: process.env.E2E_BASE_URL || 'http://localhost:9562',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     // Increase timeouts for CI/slower environments
@@ -55,7 +55,7 @@ export default defineConfig({
     webServer: {
       command: process.env.E2E_START_SERVER,
       cwd: '..', // Run from project root so ./dist resolves correctly
-      url: 'http://localhost:8080/api/v1/health',
+      url: 'http://localhost:9562/api/v1/health',
       reuseExistingServer: false,
       timeout: 120000,
     },

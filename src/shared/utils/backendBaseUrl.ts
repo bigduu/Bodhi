@@ -1,8 +1,8 @@
 const BACKEND_BASE_URL_KEY = "copilot_backend_base_url";
 
-const FALLBACK_BACKEND_BASE_URL = "http://127.0.0.1:8080/v1";
+const FALLBACK_BACKEND_BASE_URL = "http://127.0.0.1:9562/v1";
 
-const DEFAULT_PORT = 8080;
+const DEFAULT_PORT = 9562;
 
 export const normalizeBackendBaseUrl = (value: string): string =>
   value.trim().replace(/\/+$/, "");

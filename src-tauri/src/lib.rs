@@ -100,7 +100,7 @@ fn setup<R: Runtime>(app: &mut App<R>) -> std::result::Result<(), Box<dyn std::e
     info!("App data dir: {:?}", app_data_dir);
 
     // Start embedded web service
-    let web_service = Arc::new(EmbeddedWebService::new(8080, app_data_dir.clone()));
+    let web_service = Arc::new(EmbeddedWebService::new(9562, app_data_dir.clone()));
 
     let web_service_clone = Arc::clone(&web_service);
     tauri::async_runtime::spawn(async move {

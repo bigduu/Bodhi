@@ -11,7 +11,7 @@ This refactoring implements support for two service modes:
 ### Backend (Rust)
 - ✅ Keep existing Tauri Commands working normally
 - ✅ Added actix-web service providing OpenAI-compatible API
-- ✅ Auto-start Web service on `localhost:8080`
+- ✅ Auto-start Web service on `localhost:9562`
 - ✅ Support streaming and non-streaming responses
 - ✅ Support image message processing
 
@@ -34,8 +34,8 @@ ServiceFactory
 ```
 
 ### API Endpoints (OpenAI Compatible)
-- `POST /v1/chat/completions` - Chat completion endpoint
-- `GET /v1/models` - Get available models
+- `POST /openai/v1/chat/completions` - Chat completion endpoint
+- `GET /openai/v1/models` - Get available models
 
 ## 🚀 Usage
 
@@ -54,7 +54,7 @@ await serviceFactory.getModels();
 import OpenAI from 'openai';
 
 const client = new OpenAI({
-  baseURL: 'http://localhost:8080/v1',
+  baseURL: 'http://localhost:9562/openai/v1',
   apiKey: 'dummy-key' // No real key needed
 });
 

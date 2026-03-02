@@ -22,7 +22,7 @@ DEBUG=true "$PROJECT_ROOT/target/release/copilot-agent-server" \
   --llm-base-url http://localhost:12123 \
   --model kimi-for-coding \
   --api-key "sk-test" \
-  --port 8080 &
+  --port 9562 &
 
 SERVER_PID=$!
 echo "Server PID: $SERVER_PID"
@@ -30,7 +30,7 @@ echo "Server PID: $SERVER_PID"
 # Wait for server
 echo "Waiting for server..."
 for i in {1..20}; do
-    if curl -s http://localhost:8080/api/v1/health >/dev/null 2>&1; then
+    if curl -s http://localhost:9562/api/v1/health >/dev/null 2>&1; then
         echo -e "${GREEN}✓ Server ready${NC}"
         break
     fi

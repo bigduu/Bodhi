@@ -24,7 +24,7 @@ interface UseMessageStreamingDeps {
 /**
  * Unified chat streaming hook
  *
- * Agent-only flow using the local agent endpoints (localhost:8080).
+ * Agent-only flow using the local agent endpoints (localhost:9562).
  */
 export function useMessageStreaming(
   deps: UseMessageStreamingDeps,

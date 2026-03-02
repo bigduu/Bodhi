@@ -43,7 +43,7 @@ describe("RecentWorkspacesManager", () => {
       const result = await recentWorkspacesManager.getRecentWorkspaces();
 
       expect(fetch).toHaveBeenCalledWith(
-        "http://127.0.0.1:8080/v1/workspace/recent",
+        "http://127.0.0.1:9562/v1/workspace/recent",
         {
           method: "GET",
           headers: {
@@ -90,7 +90,7 @@ describe("RecentWorkspacesManager", () => {
       });
 
       expect(fetch).toHaveBeenCalledWith(
-        "http://127.0.0.1:8080/v1/workspace/recent",
+        "http://127.0.0.1:9562/v1/workspace/recent",
         {
           method: "POST",
           headers: {
@@ -124,7 +124,7 @@ describe("RecentWorkspacesManager", () => {
         await recentWorkspacesManager.validateWorkspacePath("/valid/workspace");
 
       expect(fetch).toHaveBeenCalledWith(
-        "http://127.0.0.1:8080/v1/workspace/validate",
+        "http://127.0.0.1:9562/v1/workspace/validate",
         {
           method: "POST",
           headers: {

@@ -307,7 +307,7 @@ Emoji: 🚀 💡 🎉
 
   test('should handle empty workflow list', async ({ page, request }) => {
     // Clean up all workflows
-    const api = process.env.E2E_API_URL ?? 'http://127.0.0.1:8080';
+    const api = process.env.E2E_API_URL ?? 'http://127.0.0.1:9562';
     const workflows = await request.get(`${api}/v1/bamboo/workflows`);
     const data = await workflows.json();
     for (const workflow of data || []) {

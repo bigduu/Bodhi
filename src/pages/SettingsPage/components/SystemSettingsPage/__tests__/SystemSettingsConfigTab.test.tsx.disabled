@@ -29,12 +29,12 @@ const makeProps = (overrides: Partial<SystemSettingsConfigTabProps> = {}) => ({
   onModelChange: vi.fn(),
   modelsError: null,
   isLoadingModels: false,
-  backendBaseUrl: "http://127.0.0.1:8080/v1",
+  backendBaseUrl: "http://127.0.0.1:9562/v1",
   onBackendBaseUrlChange: vi.fn(),
   onSaveBackendBaseUrl: vi.fn(),
   onResetBackendBaseUrl: vi.fn(),
   hasBackendOverride: false,
-  defaultBackendBaseUrl: "http://127.0.0.1:8080/v1",
+  defaultBackendBaseUrl: "http://127.0.0.1:9562/v1",
   ...overrides,
 });
 

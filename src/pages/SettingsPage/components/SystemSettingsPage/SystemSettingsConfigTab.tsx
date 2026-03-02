@@ -23,7 +23,7 @@ export const SystemSettingsConfigTab: React.FC<
     https_proxy: "",
   });
   const [backendBaseUrl, setBackendBaseUrl] = useState(
-    "http://127.0.0.1:8080/v1",
+    "http://127.0.0.1:9562/v1",
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -91,7 +91,7 @@ export const SystemSettingsConfigTab: React.FC<
   };
 
   const handleResetBackendUrl = () => {
-    setBackendBaseUrl("http://127.0.0.1:8080/v1");
+    setBackendBaseUrl("http://127.0.0.1:9562/v1");
     msgApi.success("Backend URL reset to default");
   };
 
@@ -136,7 +136,7 @@ export const SystemSettingsConfigTab: React.FC<
               style={{ width: "100%" }}
               value={backendBaseUrl}
               onChange={(e) => setBackendBaseUrl(e.target.value)}
-              placeholder="http://127.0.0.1:8080/v1"
+              placeholder="http://127.0.0.1:9562/v1"
             />
           </Space>
           <Text type="secondary" style={{ fontSize: token.fontSizeSM }}>

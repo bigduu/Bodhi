@@ -40,7 +40,7 @@ describe("WorkflowManagerService", () => {
       },
     ]);
     expect(mockFetch).toHaveBeenCalledWith(
-      "http://127.0.0.1:8080/v1/bamboo/workflows",
+      "http://127.0.0.1:9562/v1/bamboo/workflows",
       expect.any(Object),
     );
   });

@@ -5,7 +5,7 @@
 
 set -e
 
-SERVER_URL="http://localhost:8080"
+SERVER_URL="http://localhost:9562"
 TEST_SESSION_ID="test-session-$(date +%s)"
 SERVER_PID=""
 CARGO="$HOME/.cargo/bin/cargo"
@@ -52,7 +52,7 @@ fi
 
 # Test 3: Start server
 echo -e "\n🚀 Test 3: Starting server..."
-export PORT=8080
+export PORT=9562
 if [ -z "$OPENAI_API_KEY" ]; then
     echo -e "${YELLOW}⚠️  OPENAI_API_KEY not set, using mock key${NC}"
     export OPENAI_API_KEY="sk-test-key"

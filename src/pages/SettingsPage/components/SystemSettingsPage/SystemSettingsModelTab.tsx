@@ -108,7 +108,7 @@ const SystemSettingsModelTab: React.FC<SystemSettingsModelTabProps> = ({
           </Flex>
           <Text type="secondary" style={{ fontSize: token.fontSizeSM }}>
             Must be a full base URL including <Text code>/v1</Text> (e.g.{" "}
-            <Text code>http://127.0.0.1:8080/v1</Text>).
+            <Text code>http://127.0.0.1:9562/v1</Text>).
           </Text>
         </Space>
       </Card>

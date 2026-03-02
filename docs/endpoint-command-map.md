@@ -2,11 +2,11 @@
 
 ## HTTP Endpoints (Backend: `crates/web_service`)
 
-### `/v1/models`
+### `/openai/v1/models`
 - Backend: `crates/web_service/src/controllers/openai_controller.rs`
 - Frontend: `src/services/ModelService.ts` → `src/store/slices/modelSlice.ts`
 
-### `/v1/chat/completions`
+### `/openai/v1/chat/completions`
 - Backend: `crates/web_service/src/controllers/openai_controller.rs`
 - Frontend: `src/services/openaiClient.ts` → chat hooks/components
 

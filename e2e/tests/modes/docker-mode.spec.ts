@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Docker Mode Tests', () => {
-  test.use({ baseURL: 'http://localhost:8080' }); // Docker container
+  test.use({ baseURL: 'http://localhost:9562' }); // Docker container
 
   test('should serve static frontend', async ({ page }) => {
     await page.goto('/');
@@ -179,7 +179,7 @@ test.describe('Docker Mode Tests', () => {
 
   test('should handle HTTPS redirects (if configured)', async ({ page }) => {
     // Try HTTP request
-    const response = await page.request.get('http://localhost:8080/');
+    const response = await page.request.get('http://localhost:9562/');
 
     // Should either work (if HTTP allowed) or redirect to HTTPS
     expect([200, 301, 302, 308]).toContain(response.status());

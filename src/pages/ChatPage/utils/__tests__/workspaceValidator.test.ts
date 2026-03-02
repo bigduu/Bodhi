@@ -60,7 +60,7 @@ describe("WorkspaceValidator", () => {
         await workspaceValidator.validateWorkspace("/valid/workspace");
 
       expect(fetch).toHaveBeenCalledWith(
-        "http://127.0.0.1:8080/v1/workspace/validate",
+        "http://127.0.0.1:9562/v1/workspace/validate",
         {
           method: "POST",
           headers: {

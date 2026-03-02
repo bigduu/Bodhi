@@ -13,7 +13,7 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-SERVER_URL="http://localhost:8080"
+SERVER_URL="http://localhost:9562"
 PROJECT_ROOT="$HOME/workspace/copilot_client_app"
 SESSION_FILE="/tmp/e2e-session-id.txt"
 
@@ -28,7 +28,7 @@ echo -e "${GREEN}✓ Build complete${NC}"
 
 echo ""
 echo "[2/6] Starting server..."
-DEBUG=true "$PROJECT_ROOT/target/debug/copilot-agent-server" --port 8080 &
+DEBUG=true "$PROJECT_ROOT/target/debug/copilot-agent-server" --port 9562 &
 SERVER_PID=$!
 echo "Server PID: $SERVER_PID"
 

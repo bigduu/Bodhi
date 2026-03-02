@@ -8,7 +8,7 @@ import { waitForBackendHealth, cleanupTestData, setupTestConfig } from './utils/
 async function globalSetup(config: FullConfig) {
   const { baseURL } = config.projects[0].use;
   // Prefer 127.0.0.1 to avoid IPv6 localhost (::1) issues with Docker port publishing in CI.
-  const apiBaseURL = process.env.E2E_API_URL || 'http://127.0.0.1:8080';
+  const apiBaseURL = process.env.E2E_API_URL || 'http://127.0.0.1:9562';
 
   console.log('🚀 Starting E2E test setup...');
   console.log(`   UI Base URL: ${baseURL}`);
@@ -46,10 +46,10 @@ async function globalSetup(config: FullConfig) {
     console.error(`   Error: ${error instanceof Error ? error.message : error}`);
     console.error('');
     console.error('Please ensure the backend is running:');
-    console.error('   cargo run -p web_service_standalone -- serve --port 8080 --data-dir /tmp/test-data');
+    console.error('   cargo run -p web_service_standalone -- serve --port 9562 --data-dir /tmp/test-data');
     console.error('');
     console.error('Or start it automatically:');
-    console.error('   E2E_START_SERVER="cargo run -p web_service_standalone -- serve --port 8080 --data-dir /tmp/test-data" yarn test:e2e');
+    console.error('   E2E_START_SERVER="cargo run -p web_service_standalone -- serve --port 9562 --data-dir /tmp/test-data" yarn test:e2e');
     process.exit(1);
   }
 

@@ -6,8 +6,8 @@
 
 ## 端口和服务
 
-- **8080**: 主服务端口
-  - `/v1/*` - OpenAI 兼容 API
+- **9562**: 主服务端口
+  - `/openai/v1/*` - OpenAI 兼容 API
   - `/anthropic/v1/*` - Anthropic 兼容 API  
   - `/gemini/v1beta/*` - Gemini 兼容 API
   - `/api/v1/*` - Agent API
@@ -27,14 +27,14 @@ docker build -t bamboo-web-service:latest .
 # 使用默认配置
 docker run -d \
   --name bamboo-web \
-  -p 8080:8080 \
+  -p 9562:9562 \
   -v bamboo-data:/data \
   bamboo-web-service:latest
 
 # 使用自定义配置
 docker run -d \
   --name bamboo-web \
-  -p 8080:8080 \
+  -p 9562:9562 \
   -v $(pwd)/config.json:/data/config.json:ro \
   -v bamboo-data:/data/sessions \
   bamboo-web-service:latest
@@ -43,7 +43,7 @@ docker run -d \
 ### 3. 测试服务
 
 ```bash
-curl http://localhost:8080/api/v1/health
+curl http://localhost:9562/api/v1/health
 ```
 
 ## 配置
@@ -54,7 +54,7 @@ curl http://localhost:8080/api/v1/health
 |------|------|--------|
 | `RUST_LOG` | 日志级别 | `info` |
 | `BAMBOO_DATA_DIR` | 数据目录 | `/data` |
-| `BAMBOO_PORT` | 服务端口 | `8080` |
+| `BAMBOO_PORT` | 服务端口 | `9562` |
 
 ### 配置文件
 
@@ -79,7 +79,7 @@ services:
   bamboo-web:
     build: .
     ports:
-      - "8080:8080"
+      - "9562:9562"
     volumes:
       - ./config.json:/data/config.json:ro
       - bamboo-data:/data
@@ -101,7 +101,7 @@ server {
     server_name api.example.com;
 
     location / {
-        proxy_pass http://localhost:8080;
+        proxy_pass http://localhost:9562;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -127,8 +127,8 @@ services:
   bamboo-web:
     image: bamboo-web-service:latest
     ports:
-      - target: 8080
-        published: 8080
+      - target: 9562
+        published: 9562
         mode: host
     volumes:
       - bamboo-data:/data
@@ -142,7 +142,7 @@ services:
       restart_policy:
         condition: on-failure
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:9562/api/v1/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -157,7 +157,7 @@ volumes:
 ### OpenAI 兼容接口
 
 ```bash
-curl http://localhost:8080/v1/chat/completions \
+curl http://localhost:9562/openai/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
     "model": "gpt-4",
@@ -169,7 +169,7 @@ curl http://localhost:8080/v1/chat/completions \
 
 ```bash
 # 创建会话
-curl -X POST http://localhost:8080/api/v1/chat \
+curl -X POST http://localhost:9562/api/v1/chat \
   -H "Content-Type: application/json" \
   -d '{
     "message": "Hello",
@@ -177,10 +177,10 @@ curl -X POST http://localhost:8080/api/v1/chat \
   }'
 
 # 获取事件流
-curl http://localhost:8080/api/v1/events/test-session
+curl http://localhost:9562/api/v1/events/test-session
 
 # 停止会话
-curl -X POST http://localhost:8080/api/v1/stop/test-session
+curl -X POST http://localhost:9562/api/v1/stop/test-session
 ```
 
 ## 监控
@@ -188,20 +188,20 @@ curl -X POST http://localhost:8080/api/v1/stop/test-session
 ### 健康检查
 
 ```bash
-curl http://localhost:8080/api/v1/health
+curl http://localhost:9562/api/v1/health
 ```
 
 ### 指标
 
 ```bash
 # 会话摘要
-curl http://localhost:8080/api/v1/metrics/summary
+curl http://localhost:9562/api/v1/metrics/summary
 
 # 模型统计
-curl http://localhost:8080/api/v1/metrics/by-model
+curl http://localhost:9562/api/v1/metrics/by-model
 
 # 每日统计
-curl http://localhost:8080/api/v1/metrics/daily
+curl http://localhost:9562/api/v1/metrics/daily
 ```
 
 ## 注意事项
@@ -209,4 +209,4 @@ curl http://localhost:8080/api/v1/metrics/daily
 1. **数据持久化**: 确保挂载数据卷，否则重启后数据丢失
 2. **配置安全**: API key 等敏感信息通过环境变量或挂载配置文件注入
 3. **网络**: 容器需要访问外部 AI API (OpenAI/Anthropic/Gemini)
-4. **端口**: 默认绑定 127.0.0.1:8080，Docker 中需要改为 0.0.0.0:8080
+4. **端口**: 默认绑定 127.0.0.1:9562，Docker 中需要改为 0.0.0.0:9562

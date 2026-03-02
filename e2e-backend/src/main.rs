@@ -11,7 +11,7 @@ use clap::Parser;
 #[command(about = "Standalone web service for E2E testing", long_about = None)]
 struct Args {
     /// Port to run the web service on
-    #[arg(long, default_value_t = 8080)]
+    #[arg(long, default_value_t = 9562)]
     port: u16,
 
     /// Directory to store test data

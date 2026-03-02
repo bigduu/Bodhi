@@ -16,7 +16,7 @@ NC='\033[0m'
 
 # Config
 export OPENAI_API_KEY="sk-TM2SvEM0eInof4zpGBcDFHmWiTb8VuswdOVRndeRmU0tqKSQ"
-SERVER_URL="http://localhost:8080"
+SERVER_URL="http://localhost:9562"
 PROJECT_ROOT="$HOME/workspace/copilot_client_app"
 LOG_FILE="/tmp/copilot-agent-real-test.log"
 
@@ -26,18 +26,18 @@ echo "API Key: ${OPENAI_API_KEY:0:10}...${OPENAI_API_KEY: -4}"
 echo ""
 
 # Check port
-echo "Checking port 8080..."
-if lsof -i :8080 >/dev/null 2>&1; then
-    echo -e "${YELLOW}Port 8080 occupied, killing process...${NC}"
-    kill $(lsof -t -i:8080) 2>/dev/null || true
+echo "Checking port 9562..."
+if lsof -i :9562 >/dev/null 2>&1; then
+    echo -e "${YELLOW}Port 9562 occupied, killing process...${NC}"
+    kill $(lsof -t -i:9562) 2>/dev/null || true
     sleep 2
 fi
-echo -e "${GREEN}✓ Port 8080 available${NC}"
+echo -e "${GREEN}✓ Port 9562 available${NC}"
 
 # Start server
 echo ""
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting server..."
-DEBUG=true "$PROJECT_ROOT/target/release/copilot-agent-server" --port 8080 > "$LOG_FILE" 2>&1 &
+DEBUG=true "$PROJECT_ROOT/target/release/copilot-agent-server" --port 9562 > "$LOG_FILE" 2>&1 &
 SERVER_PID=$!
 echo "Server PID: $SERVER_PID"
 

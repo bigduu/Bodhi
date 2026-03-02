@@ -15,7 +15,7 @@
 - 确保 Store 只在 setup 完成后初始化
 
 **影响**:
-- 防止应用启动时立即触发 `/v1/models` 请求
+- 防止应用启动时立即触发 `/openai/v1/models` 请求
 - 确保在 Setup 页面阶段不会发起任何 API 请求
 
 ---
@@ -55,7 +55,7 @@
 **状态**: 未实施（被 Layer 3 覆盖）
 
 **原因**:
-- Layer 3 已经在 `/v1/models` 端点中阻止了认证流程的触发
+- Layer 3 已经在 `/openai/v1/models` 端点中阻止了认证流程的触发
 - `copilot_client.get_models()` 只有在有 token 文件时才会被调用
 - 因此 `auth_handler.get_chat_token()` 不会在 setup 阶段被调用
 

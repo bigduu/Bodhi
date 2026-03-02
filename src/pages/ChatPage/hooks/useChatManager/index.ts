@@ -16,7 +16,7 @@ import { useChatHistory } from "./useChatHistory";
  * Unified hook for managing all chat-related state and interactions.
  * This hook is the single source of truth for chat management in the UI.
  *
- * Uses Agent Server endpoints (localhost:8080).
+ * Uses Agent Server endpoints (localhost:9562).
  */
 export const useChatManager = () => {
   // Phase 1: State and derived values

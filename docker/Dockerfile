@@ -72,15 +72,15 @@ COPY --from=frontend-builder /app/dist /app/static
 # Environment variables
 ENV RUST_LOG=info
 ENV BAMBOO_DATA_DIR=/data
-ENV BAMBOO_PORT=8080
+ENV BAMBOO_PORT=9562
 
 # Expose port
-EXPOSE 8080
+EXPOSE 9562
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://127.0.0.1:8080/api/v1/health || exit 1
+    CMD curl -f http://127.0.0.1:9562/api/v1/health || exit 1
 
 # Run service - serve both API and static frontend files
 ENTRYPOINT ["/app/web_service_standalone"]
-CMD ["--port", "8080", "--bind", "0.0.0.0", "--data-dir", "/data", "--static-dir", "/app/static"]
+CMD ["--port", "9562", "--bind", "0.0.0.0", "--data-dir", "/data", "--static-dir", "/app/static"]

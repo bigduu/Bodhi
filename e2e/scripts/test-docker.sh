@@ -120,7 +120,7 @@ run_tests() {
     log_info "Running E2E tests..."
 
     cd "${E2E_DIR}"
-    E2E_BASE_URL=http://localhost:8080 npm test -- tests/docker/docker-deployment.spec.ts
+    E2E_BASE_URL=http://localhost:9562 npm test -- tests/docker/docker-deployment.spec.ts
 
     local exit_code=$?
 
