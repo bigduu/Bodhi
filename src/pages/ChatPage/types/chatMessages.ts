@@ -48,6 +48,10 @@ export interface MessageImage {
   // For persisted sessions, the backend stores attachments by reference; we render via URL.
   base64?: string;
   url?: string;
+  // Optional OCR text persisted on the backend (when enabled) for this image.
+  // UI can choose whether/how to display this.
+  ocrText?: string;
+  ocrError?: string;
   name: string;
   size: number;
   type: string;

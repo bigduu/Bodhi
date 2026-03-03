@@ -108,6 +108,17 @@ const mapHistoryMessagesToUi = (
       | { type: "text"; text: string }
       | { type: "image_url"; image_url: { url: string; detail?: string } }
     >;
+    image_ocr?: Array<{
+      image_url: string;
+      lines?: Array<{
+        text: string;
+        left: number;
+        top: number;
+        width: number;
+        height: number;
+      }>;
+      error?: string | null;
+    }>;
     tool_calls?: Array<{
       id: string;
       type: string;
@@ -135,6 +146,21 @@ const mapHistoryMessagesToUi = (
     }
 
     if (msg.role === "user") {
+      const ocrByUrl = new Map<
+        string,
+        { ocrText?: string; ocrError?: string }
+      >();
+      for (const item of msg.image_ocr || []) {
+        const url = item.image_url?.trim();
+        if (!url) continue;
+        const lines = item.lines || [];
+        const text = lines.map((l) => (l?.text || "").trim()).filter(Boolean);
+        ocrByUrl.set(url, {
+          ocrText: text.length ? text.join("\n") : undefined,
+          ocrError: item.error ? String(item.error) : undefined,
+        });
+      }
+
       const images: MessageImage[] = [];
       for (const part of msg.content_parts || []) {
         if (part.type !== "image_url") continue;
@@ -142,9 +168,12 @@ const mapHistoryMessagesToUi = (
         if (!rawUrl) continue;
         const resolved = resolveImageUrlForRender(rawUrl);
         const ref = parseBambooAttachmentUrl(rawUrl);
+        const ocr = ocrByUrl.get(rawUrl.trim());
         images.push({
           id: safeRandomId(),
           url: resolved,
+          ocrText: ocr?.ocrText,
+          ocrError: ocr?.ocrError,
           name: ref ? `attachment-${ref.attachmentId}` : "image",
           size: 0,
           type: "image/*",
