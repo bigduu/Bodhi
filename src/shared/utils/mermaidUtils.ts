@@ -37,6 +37,11 @@ When explaining concepts, processes, relationships, or data structures, use Merm
 - **Git Graphs** - version control workflows
 
 **Syntax Notes:**
+- Mermaid diagram definitions MUST be inside a fenced code block (never inline). Example:
+  \`\`\`mermaid
+  graph TD
+    A --> B
+  \`\`\`
 - Avoid nested brackets: use \`A[Text]\` or \`A(Text)\`, NOT \`A[Text()]\`
 - Use HTML entities for special chars: &#35; for #, &#59; for ;, &#34; for quotes
 - Keep participant names simple (no spaces): \`participant UserService\`

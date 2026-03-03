@@ -67,6 +67,11 @@ describe("systemPromptEnhancement", () => {
     );
   });
 
+  it("mermaid enhancement prompt requires fenced code blocks", () => {
+    expect(getMermaidEnhancementPrompt()).toContain("```mermaid");
+    expect(getMermaidEnhancementPrompt()).toContain("fenced code block");
+  });
+
   it("returns only enabled system enhancements when user text is empty", () => {
     setTodoEnhancementEnabled(true);
 
