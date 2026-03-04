@@ -613,6 +613,42 @@ dependencies = [
 ]
 
 [[package]]
+name = "bodhi"
+version = "2026.3.3"
+dependencies = [
+ "anyhow",
+ "arboard",
+ "async-stream",
+ "bamboo-agent",
+ "chrono",
+ "crossbeam",
+ "dirs 5.0.1",
+ "env_logger",
+ "log",
+ "once_cell",
+ "portable-pty",
+ "regex",
+ "reqwest 0.12.28",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "sha2",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-dialog",
+ "tauri-plugin-fs",
+ "tauri-plugin-global-shortcut",
+ "tauri-plugin-log",
+ "tauri-plugin-process",
+ "tauri-plugin-shell",
+ "tempfile",
+ "thiserror 1.0.69",
+ "tokio",
+ "uuid",
+ "zstd",
+]
+
+[[package]]
 name = "borsh"
 version = "1.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1010,42 +1046,6 @@ checksum = "4ddef33a339a91ea89fb53151bd0a4689cfce27055c291dfa69945475d22c747"
 dependencies = [
  "time",
  "version_check",
-]
-
-[[package]]
-name = "copilot_chat"
-version = "2026.3.3"
-dependencies = [
- "anyhow",
- "arboard",
- "async-stream",
- "bamboo-agent",
- "chrono",
- "crossbeam",
- "dirs 5.0.1",
- "env_logger",
- "log",
- "once_cell",
- "portable-pty",
- "regex",
- "reqwest 0.12.28",
- "serde",
- "serde_json",
- "serde_yaml",
- "sha2",
- "tauri",
- "tauri-build",
- "tauri-plugin-dialog",
- "tauri-plugin-fs",
- "tauri-plugin-global-shortcut",
- "tauri-plugin-log",
- "tauri-plugin-process",
- "tauri-plugin-shell",
- "tempfile",
- "thiserror 1.0.69",
- "tokio",
- "uuid",
- "zstd",
 ]
 
 [[package]]

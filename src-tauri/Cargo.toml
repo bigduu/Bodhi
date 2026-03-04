@@ -1,5 +1,5 @@
 [package]
-name = "copilot_chat"
+name = "bodhi"
 version = "2026.3.3"
 description = "A Tauri App"
 authors = ["bigduu"]

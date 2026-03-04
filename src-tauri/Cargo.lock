@@ -1037,7 +1037,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "copilot_chat"
+name = "bodhi"
 version = "0.3.2"
 dependencies = [
  "actix-cors",

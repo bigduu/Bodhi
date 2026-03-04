@@ -20,6 +20,25 @@ vi.mock("../../pages/ChatPage/store", () => ({
   initializeStore: mockInitializeStore,
 }));
 
+// Tests should be agnostic to internal/public branding. If an internal build is enabled
+// via `.env`, the startup confirmation would otherwise block the main UI rendering.
+vi.mock("../../shared/components/StartupConfirmation", async () => {
+  const React = await import("react");
+
+  return {
+    StartupConfirmation: ({ onConfirm }: { onConfirm: () => void }) => {
+      const didConfirmRef = React.useRef(false);
+      React.useEffect(() => {
+        if (!didConfirmRef.current) {
+          didConfirmRef.current = true;
+          onConfirm();
+        }
+      }, [onConfirm]);
+      return <div data-testid="startup-confirmation-mock" />;
+    },
+  };
+});
+
 import App from "../App";
 
 const mockSetupStatus = (status: {

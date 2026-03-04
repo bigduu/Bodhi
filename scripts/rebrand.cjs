@@ -437,6 +437,37 @@ recordResult(
   }),
 );
 
+// 1.5. Update Rust crate name (used for the Tauri binary name / build artifacts)
+recordResult(
+  updateFile("src-tauri/Cargo.toml", [
+    {
+      description: "Cargo package name",
+      pattern: /(\[package\][\s\S]*?\nname\s*=\s*")[^"]*(")/,
+      replacement: `$1${brand.packageName}$2`,
+    },
+  ]),
+);
+
+// Keep Cargo.lock in sync (avoids `--locked` failures when switching targets)
+recordResult(
+  updateFile("Cargo.lock", [
+    {
+      description: "Cargo.lock root package name",
+      pattern: /name\s*=\s*"(?:copilot_chat|bodhi|bamboo)"/,
+      replacement: `name = "${brand.packageName}"`,
+    },
+  ]),
+);
+recordResult(
+  updateFile("src-tauri/Cargo.lock", [
+    {
+      description: "src-tauri/Cargo.lock root package name",
+      pattern: /name\s*=\s*"(?:copilot_chat|bodhi|bamboo)"/,
+      replacement: `name = "${brand.packageName}"`,
+    },
+  ]),
+);
+
 // 2. Update tauri.conf.json
 recordResult(
   updateJSON("src-tauri/tauri.conf.json", {
