@@ -24,6 +24,7 @@ npm run tauri:build:public
 - **Product Name**: Bodhi
 - **Package Name**: bodhi
 - **Window Title**: Bodhi
+- **Tauri Identifier**: com.bodhi.app
 - **System Prompt**: "You are Bodhi"
 
 **Use for**:
@@ -35,6 +36,7 @@ npm run tauri:build:public
 - **Product Name**: Bamboo
 - **Package Name**: bamboo
 - **Window Title**: Bamboo
+- **Tauri Identifier**: com.bamboo.app
 - **System Prompt**: "You are Bamboo"
 
 **Use for**:
@@ -49,6 +51,10 @@ npm run tauri:build:public
 # Switch brand without building
 npm run rebrand:internal     # Switch to internal branding
 npm run rebrand:public       # Switch to public branding
+
+# Verify branding without writing files (exits non-zero if mismatched)
+npm run rebrand:check                    # Check internal branding (default)
+npm run rebrand:check -- --target=public # Check public branding
 ```
 
 ### Build Commands
@@ -69,36 +75,12 @@ npm run tauri:dev:internal   # Dev mode with internal branding
 npm run tauri:dev:public     # Dev mode with public branding
 ```
 
-## Branding Targets
-
-### Internal (default)
-- **Product Name**: Bodhi
-- **Package Name**: bodhi
-- **Window Title**: Bodhi
-- **System Prompt**: "You are Bodhi"
-
-**Use for**:
-- Local development
-- Internal testing
-- Development builds
-
-### Public
-- **Product Name**: Bamboo
-- **Package Name**: bamboo
-- **Window Title**: Bamboo
-- **System Prompt**: "You are Bamboo"
-
-**Use for**:
-- GitHub releases
-- Public distribution
-- Production builds
-
 ## How It Works
 
 The `scripts/rebrand.cjs` script automatically updates:
 
 1. **package.json** - Package name
-2. **src-tauri/tauri.conf.json** - Product name and window title
+2. **src-tauri/tauri.conf.json** - Product name, identifier, and window title(s)
 3. **index.html** - HTML title
 4. **src/pages/ChatPage/utils/defaultSystemPrompts.ts** - System prompt name and content
 5. **src/pages/ChatPage/components/__tests__/SystemPromptSelector.test.tsx** - Test fixtures
@@ -143,6 +125,7 @@ const BRANDS = {
     productName: 'Bamboo',
     windowTitle: 'Bamboo',
     packageName: 'bamboo',
+    identifier: 'com.bamboo.app',
     htmlTitle: 'Bamboo',
     systemPromptName: 'Bamboo',
     systemPromptContent: 'You are Bamboo',
@@ -151,6 +134,7 @@ const BRANDS = {
     productName: 'Bodhi',
     windowTitle: 'Bodhi',
     packageName: 'bodhi',
+    identifier: 'com.bodhi.app',
     htmlTitle: 'Bodhi',
     systemPromptName: 'Default',
     systemPromptContent: 'You are Bodhi',

@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Bodhi",
-  "version": "2026.03.08",
-  "identifier": "com.agent.chat",
+  "version": "2026.3.8",
+  "identifier": "com.bodhi.app",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
