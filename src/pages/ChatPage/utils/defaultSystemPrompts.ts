@@ -3,7 +3,7 @@ import type { UserSystemPrompt } from "../types/chat";
 const DEFAULT_SYSTEM_PROMPT: UserSystemPrompt = {
   // Keep this aligned with the app-wide default prompt id used in chat configs.
   id: "general_assistant",
-  name: "Default",
+  name: "Bodhi",
   description: "Default system prompt.",
   content:
     "You are Bodhi, a highly capable AI assistant.\n\n" +

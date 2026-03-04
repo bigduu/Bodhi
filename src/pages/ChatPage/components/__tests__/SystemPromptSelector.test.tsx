@@ -20,7 +20,7 @@ describe("SystemPromptSelector", () => {
   const mockPrompts: UserSystemPrompt[] = [
     {
       id: "general_assistant",
-      name: "Default",
+      name: "Bodhi",
       content: "You are Bodhi, a highly capable AI assistant.",
       description: "Default system prompt.",
       isDefault: true,
