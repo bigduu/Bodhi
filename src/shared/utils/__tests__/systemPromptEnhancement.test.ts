@@ -3,6 +3,7 @@ import {
   buildEnhancedSystemPrompt,
   getEffectiveSystemPrompt,
   getSystemPromptEnhancement,
+  getSystemPromptEnhancementPipeline,
   getSystemPromptEnhancementText,
   setSystemPromptEnhancement,
 } from "../systemPromptEnhancement";
@@ -14,6 +15,7 @@ import {
   getTodoEnhancementPrompt,
   setTodoEnhancementEnabled,
 } from "../todoEnhancementUtils";
+import { getOSInfoEnhancementPrompt } from "../osInfoUtils";
 
 describe("systemPromptEnhancement", () => {
   beforeEach(() => {
@@ -60,6 +62,7 @@ describe("systemPromptEnhancement", () => {
 
     expect(getSystemPromptEnhancementText()).toBe(
       [
+        getOSInfoEnhancementPrompt().trim(),
         "User enhancement",
         getMermaidEnhancementPrompt().trim(),
         getTodoEnhancementPrompt().trim(),
@@ -76,7 +79,10 @@ describe("systemPromptEnhancement", () => {
     setTodoEnhancementEnabled(true);
 
     expect(getSystemPromptEnhancementText()).toBe(
-      getTodoEnhancementPrompt().trim(),
+      [
+        getOSInfoEnhancementPrompt().trim(),
+        getTodoEnhancementPrompt().trim(),
+      ].join("\n\n"),
     );
   });
 
@@ -86,11 +92,16 @@ describe("systemPromptEnhancement", () => {
     const result = getEffectiveSystemPrompt("Base prompt", "/Users/alice/app");
     const workspaceSegment = [
       "Workspace path: /Users/alice/app",
-      "If you need to inspect files, check the workspace first, then ~/.bamboo.",
+      "If you need to inspect files, check the workspace first, then check the bamboo data directory in the user's home directory (use OS-appropriate path format).",
     ].join("\n");
 
     expect(result).toBe(
-      ["Base prompt", "User enhancement", workspaceSegment].join("\n\n"),
+      [
+        "Base prompt",
+        getOSInfoEnhancementPrompt().trim(),
+        "User enhancement",
+        workspaceSegment,
+      ].join("\n\n"),
     );
   });
 
@@ -99,6 +110,56 @@ describe("systemPromptEnhancement", () => {
 
     const result = getEffectiveSystemPrompt("Base prompt", "");
 
-    expect(result).toBe("Base prompt\n\nUser enhancement");
+    expect(result).toBe(
+      [
+        "Base prompt",
+        getOSInfoEnhancementPrompt().trim(),
+        "User enhancement",
+      ].join("\n\n"),
+    );
+  });
+
+  it("OS info enhancement is always first in the pipeline", () => {
+    setSystemPromptEnhancement("User enhancement");
+    setMermaidEnhancementEnabled(true);
+    setTodoEnhancementEnabled(true);
+
+    const pipeline = getSystemPromptEnhancementPipeline();
+
+    expect(pipeline.length).toBeGreaterThan(0);
+    expect(pipeline[0]).toContain("Operating System Information");
+    expect(pipeline[0]).toBe(getOSInfoEnhancementPrompt().trim());
+  });
+
+  it("OS info enhancement is included even when all other enhancements are disabled", () => {
+    setSystemPromptEnhancement("");
+    setMermaidEnhancementEnabled(false);
+    setTodoEnhancementEnabled(false);
+
+    const pipeline = getSystemPromptEnhancementPipeline();
+
+    expect(pipeline.length).toBe(1);
+    expect(pipeline[0]).toContain("Operating System Information");
+  });
+
+  it("builds enhancement text with OS info first, then user and system prompts", () => {
+    setSystemPromptEnhancement("User enhancement");
+    setMermaidEnhancementEnabled(true);
+    setTodoEnhancementEnabled(true);
+
+    const enhancementText = getSystemPromptEnhancementText();
+    const expectedOrder = [
+      getOSInfoEnhancementPrompt().trim(),
+      "User enhancement",
+      getMermaidEnhancementPrompt().trim(),
+      getTodoEnhancementPrompt().trim(),
+    ].join("\n\n");
+
+    expect(enhancementText).toBe(expectedOrder);
+
+    // Verify OS info comes before user enhancement
+    const osIndex = enhancementText.indexOf("Operating System Information");
+    const userIndex = enhancementText.indexOf("User enhancement");
+    expect(osIndex).toBeLessThan(userIndex);
   });
 });

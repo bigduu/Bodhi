@@ -6,6 +6,7 @@ import {
   getTodoEnhancementPrompt,
   isTodoEnhancementEnabled,
 } from "./todoEnhancementUtils";
+import { getOSInfoEnhancementPrompt } from "./osInfoUtils";
 
 const SYSTEM_PROMPT_ENHANCEMENT_KEY = "bamboo_system_prompt_enhancement";
 
@@ -35,7 +36,7 @@ const buildWorkspaceContextSegment = (workspacePath?: string): string => {
   }
   return [
     `Workspace path: ${normalized}`,
-    "If you need to inspect files, check the workspace first, then ~/.bamboo.",
+    "If you need to inspect files, check the workspace first, then check the bamboo data directory in the user's home directory (use OS-appropriate path format).",
   ].join("\n");
 };
 
@@ -60,6 +61,10 @@ export const setSystemPromptEnhancement = (value: string): void => {
 
 export const getSystemPromptEnhancementPipeline = (): string[] => {
   const pipeline: string[] = [];
+
+  // OS info enhancement is ALWAYS included first (user cannot disable)
+  pipeline.push(getOSInfoEnhancementPrompt().trim());
+
   const userEnhancement = getSystemPromptEnhancement().trim();
 
   if (userEnhancement) {
