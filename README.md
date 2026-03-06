@@ -1,181 +1,97 @@
-# Bamboo - GitHub Copilot Chat Desktop
+# Bodhi Shell
 
-Bamboo is a native desktop application for GitHub Copilot Chat, built with **Tauri** (Rust backend) and **React/TypeScript** (frontend). It provides a focused, AI-assisted coding experience with autonomous agent capabilities and an intuitive chat interface.
+Bodhi is the Tauri desktop shell for Lotus. After the project split, Lotus owns frontend product code, while Bodhi owns desktop runtime concerns: native commands, window lifecycle, packaging, and release behavior.
 
-## Features
+## Ownership and Scope
 
-### Core Chat
-- **Interactive Chat Interface** - Clean, responsive chat window with real-time streaming
-- **Rich Markdown Rendering** - Formatted text, lists, links, and Mermaid diagrams
-- **Syntax Highlighting** - Code snippets with accurate language detection
-- **Cross-Platform** - Native experience on macOS, Windows, and Linux
+- `lotus`: frontend source of truth (React/Vite UI, web tests, E2E)
+- `bodhi`: desktop shell (`src-tauri`), app packaging, native integrations
+- `bamboo`: backend agent service/framework
 
-### AI Agent System
-- **Autonomous Tool Usage** - LLM can invoke tools to accomplish tasks
-- **Agent Loop Orchestration** - Backend manages multi-step execution
-- **Approval Gates** - Sensitive operations require explicit user approval
-- **Error Recovery** - Intelligent retry with LLM feedback
-- **Timeout Protection** - Safeguards against runaway loops
-- **Multi-LLM Support** - GitHub Copilot, OpenAI, Anthropic Claude, Google Gemini
-
-### User Workflows
-- **Explicit Control** - User-initiated workflows for complex operations
-- **Form-Based UI** - Parameter input with validation
-- **Category Organization** - Grouped by functionality (general, file operations, system)
-- **Safety Warnings** - Clear prompts for destructive operations
-
-### Developer Experience
-- **System Prompt Management** - Create and manage custom prompts
-- **Context Persistence** - Backend-managed chat history
-- **File References** - Drag/drop or `@mention` files
-- **Virtualized Rendering** - Smooth performance with large conversations
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|------------|
-| Frontend | React 18, TypeScript, Ant Design 5, Vite |
-| Backend | Rust, Tauri, bamboo-agent crate |
-| State | Zustand (UI), custom hooks (chat) |
-| Testing | Vitest (frontend), cargo test (backend) |
+Bodhi can currently source Lotus assets from either:
+- a local sibling checkout (`../lotus`), or
+- the published npm package (`@bigduu/lotus`)
 
 ## Architecture
 
-Bamboo uses an **embedded architecture** where the bamboo-agent HTTP server runs directly within the Tauri application process:
-
+```text
++-------------------------+        +----------------------+
+|      Bodhi (Tauri)      | <----> |   bamboo-agent API   |
+|  - native Rust commands |        |  local/remote backend|
+|  - desktop packaging    |        +----------------------+
+|  - bundles Lotus assets |
++------------+------------+
+             |
+             v
+       Lotus frontend
+   (local checkout or npm package)
 ```
-┌──────────────────────────┐
-│  Tauri Desktop App       │
-│  ├── Frontend (React)    │
-│  ├── HTTP Server :8080   │  ← Embedded
-│  └── bamboo-agent        │
-└──────────────────────────┘
+
+## Repository Layout
+
+```text
+bodhi/
+├── src-tauri/              # Tauri app (Rust)
+├── scripts/                # Lotus source/rebrand helpers
+├── docs/                   # Bodhi-specific documentation
+├── e2e-backend/            # backend fixtures/helpers
+└── src/                    # legacy mirrored frontend files (not source of truth)
 ```
 
-**Benefits**:
-- Single process (simpler than sidecar)
-- Faster startup
-- Lower resource usage
-- Easier debugging
-- Direct access to agent internals
+## Prerequisites
 
-## Quick Start
+- Node.js LTS (20+ recommended)
+- Rust stable (`rustup`)
+- Optional local `../lotus` checkout (required for `tauri:dev` and local web scripts)
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (LTS recommended)
-- [Rust](https://rustup.rs/)
-- GitHub Copilot API token (or other LLM provider token)
-
-### Installation
+## Development
 
 ```bash
-# Clone the repository
-git clone https://github.com/bigduu/Bodhi.git
-cd Bodhi
-
-# Install shell dependencies
-cd bodhi && npm install
-
-# Install frontend dependencies
-cd lotus && npm install
-
-# Configure API token
-# Create a .token file in src-tauri/ with your GitHub Copilot token
+cd bodhi
+npm install
+npm run tauri:dev
 ```
 
-### Development
+Useful commands:
 
 ```bash
-# Start Tauri shell + frontend
-cd bodhi && npm run tauri:dev
-
-# Run frontend tests
-cd bodhi && npm run test
-
-# Format frontend code
-cd bodhi && npm run format
+npm run tauri:build         # build desktop app
+npm run web:build           # stage Lotus dist into .lotus-dist
+npm run web:source:info     # print Lotus source resolution
+npm run type-check          # delegates to ../lotus
+npm run test:run            # delegates to ../lotus Vitest
+npm run test:e2e            # delegates to ../lotus/e2e
+cargo test --manifest-path src-tauri/Cargo.toml
 ```
 
-### Build
+## Lotus Source Modes
+
+`npm run web:build` stages frontend assets into `bodhi/.lotus-dist`, which Tauri consumes as `frontendDist`.
+
+- `LOTUS_SOURCE=auto` (default): local `../lotus` first, then npm package
+- `LOTUS_SOURCE=local`: force local mode
+- `LOTUS_SOURCE=package`: force package mode
+- `LOTUS_LOCAL_PATH`: override local path (default `../lotus`)
+- `LOTUS_PACKAGE_NAME`: override package name (default `@bigduu/lotus`)
+
+Package-mode build example:
 
 ```bash
-# Create production build
-cd bodhi && npm run tauri:build
+cd bodhi
+npm install @bigduu/lotus@<version>
+LOTUS_SOURCE=package LOTUS_PACKAGE_NAME=@bigduu/lotus npm run tauri:build
 ```
 
-## Project Structure
+## Build Profiles
 
-```
-bamboo/
-├── src/                    # Frontend React application
-│   ├── pages/             # Page components (Chat, Settings, Spotlight)
-│   ├── app/               # Root app component
-│   └── services/          # Shared services
-├── src-tauri/             # Tauri application
-│   ├── src/
-│   │   ├── embedded/      # Embedded web service manager
-│   │   ├── command/       # Tauri commands
-│   │   ├── process/       # Process registry
-│   │   └── ...
-│   └── Cargo.toml         # bamboo-agent dependency
-├── ../lotus/e2e/          # End-to-end tests (Playwright)
-└── docs/                  # Documentation
-```
+- `npm run tauri:dev:public`
+- `npm run tauri:dev:internal`
+- `npm run tauri:build:public`
+- `npm run tauri:build:internal`
 
-## Dependencies
+These profiles control shell mode/rebrand behavior while keeping app identity as Bodhi.
 
-### Key Dependencies
-- **[bamboo-agent](https://crates.io/crates/bamboo-agent)** - AI agent backend framework (v0.1.0)
-  - Multi-LLM provider support (Copilot, OpenAI, Claude, Gemini)
-  - 24 built-in tools for file operations
-  - Session management
-  - Workflow system
+## CI Boundary
 
-## Deployment Modes
-
-Bamboo supports multiple deployment modes:
-
-### Desktop Mode (Tauri + Embedded)
-- Single process architecture
-- Embedded HTTP server on `127.0.0.1:8080`
-- Native desktop features
-- Use: `cd bodhi && npm run tauri:dev` or `cd bodhi && npm run tauri:build`
-
-### Browser Development Mode
-- Frontend served by Vite dev server (port 1420)
-- Backend runs as standalone process
-- Use: `cargo run --manifest-path ../bamboo/Cargo.toml --bin bamboo -- serve --port 9562 --bind 127.0.0.1 --data-dir /tmp/bamboo-data`
-
-## Documentation
-
-Comprehensive documentation is organized in the `docs/` directory:
-
-- **[Architecture](docs/architecture/)** - System design and architecture
-- **[Development](docs/development/)** - Development guidelines
-- **[Extension System](docs/extension-system/)** - Tool creation and registration
-- **[Testing](docs/testing/)** - Testing strategies
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Make your changes
-4. Run `npm run format` before committing
-5. Push and open a Pull Request
-
-### Commit Convention
-
-- `feat:` New feature
-- `fix:` Bug fix
-- `docs:` Documentation changes
-- `refactor:` Code refactoring
-- `test:` Test changes
-- `chore:` Build/config changes
-
-## License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
----
-
-**Note**: Version 2.0+ introduces backend-managed chat context. See the [migration guide](docs/architecture/context-manager-migration.md) if upgrading from earlier versions.
+- Lotus CI: web checks and frontend artifacts only
+- Bodhi CI: Tauri build and desktop packaging

@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+.lotus-dist
 dist-ssr
 *.local
 coverage/
