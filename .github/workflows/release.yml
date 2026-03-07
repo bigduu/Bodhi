@@ -11,9 +11,6 @@ on:
         description: "Lotus npm version to bundle (default: latest)"
         required: false
         default: "latest"
-  push:
-    branches:
-      - release
 
 jobs:
   publish-tauri:
