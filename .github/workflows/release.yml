@@ -82,6 +82,8 @@ jobs:
         uses: swatinem/rust-cache@v2
         with:
           workspaces: "./src-tauri -> target"
+          shared-key: "bodhi-release-${{ matrix.target }}"
+          cache-on-failure: true
 
       - name: Resolve bamboo-agent dependency
         shell: bash
