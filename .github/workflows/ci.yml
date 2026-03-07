@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  LOTUS_SOURCE: package
+  LOTUS_PACKAGE_NAME: "@bigduu/lotus"
+  LOTUS_VERSION: latest
+
 jobs:
   test-frontend:
     name: Test Frontend
@@ -17,19 +22,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
-          cache: 'yarn'
+          cache: "npm"
 
       - name: Install dependencies
-        run: yarn install
+        run: npm ci
 
-      - name: Type check
-        run: yarn type-check
+      - name: Install Lotus package
+        run: npm install --no-save "${LOTUS_PACKAGE_NAME}@${LOTUS_VERSION}"
 
-      - name: Run tests
-        run: yarn test:run
+      - name: Print Lotus source resolution
+        run: npm run web:source:info
 
       - name: Build frontend
-        run: yarn build
+        run: npm run web:build
+
+      - name: Verify staged frontend assets
+        run: test -f .lotus-dist/index.html
 
   test-backend:
     name: Test Backend (${{ matrix.platform }})
@@ -67,7 +75,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ubuntu-22.04, macos-latest, windows-latest]
+        include:
+          - platform: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            args: "--target x86_64-unknown-linux-gnu"
+            artifact_name: "linux-x64"
+            artifact_paths: |
+              src-tauri/target/x86_64-unknown-linux-gnu/release/bundle/appimage/*.AppImage
+              src-tauri/target/x86_64-unknown-linux-gnu/release/bundle/deb/*.deb
+          - platform: macos-latest
+            target: aarch64-apple-darwin
+            args: "--target aarch64-apple-darwin"
+            artifact_name: "macos-arm64"
+            artifact_paths: |
+              src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg
+              src-tauri/target/aarch64-apple-darwin/release/bundle/macos/*.app.tar.gz
+          - platform: windows-latest
+            target: x86_64-pc-windows-msvc
+            args: "--target x86_64-pc-windows-msvc --bundles nsis"
+            artifact_name: "windows-x64"
+            artifact_paths: |
+              src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/*.exe
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
@@ -82,10 +110,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
-          cache: 'yarn'
+          cache: "npm"
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
+
+      - name: Add Rust target
+        shell: bash
+        run: rustup target add "${{ matrix.target }}"
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
@@ -93,24 +125,28 @@ jobs:
           workspaces: ". -> target"
 
       - name: Install frontend dependencies
-        run: yarn install
+        run: npm ci
+
+      - name: Install Lotus package
+        shell: bash
+        run: npm install --no-save "${LOTUS_PACKAGE_NAME}@${LOTUS_VERSION}"
+
+      - name: Stage Lotus dist
+        shell: bash
+        run: |
+          npm run web:build
+          test -f .lotus-dist/index.html
 
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0.5.10
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: ""
+          args: ${{ matrix.args }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: tauri-build-${{ matrix.platform }}
-          path: |
-            target/release/bundle/dmg/*.dmg
-            target/release/bundle/macos/*.app.tar.gz
-            target/release/bundle/appimage/*.AppImage
-            target/release/bundle/deb/*.deb
-            target/release/bundle/msi/*.msi
-            target/release/bundle/msi/*.msi.zip
+          name: tauri-build-${{ matrix.artifact_name }}
+          path: ${{ matrix.artifact_paths }}
           if-no-files-found: warn
