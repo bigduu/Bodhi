@@ -3,6 +3,10 @@ name: "publish"
 on:
   workflow_dispatch:
     inputs:
+      bodhi_version:
+        description: "Bodhi app version to publish (default: use src-tauri/Cargo.toml)"
+        required: false
+        default: "latest"
       bamboo_version:
         description: "bamboo-agent crate version to embed (default: latest)"
         required: false
@@ -58,6 +62,16 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set Bodhi app version (workflow override)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.bodhi_version != '' && github.event.inputs.bodhi_version != 'latest'
+        shell: bash
+        run: |
+          TARGET_VERSION="${{ github.event.inputs.bodhi_version }}"
+          sed -i.bak -E '0,/^version = "[^"]+"/s//version = "'"${TARGET_VERSION}"'"/' src-tauri/Cargo.toml
+          rm -f src-tauri/Cargo.toml.bak
+          echo "Using bodhi version override: ${TARGET_VERSION}"
+          grep '^version = ' src-tauri/Cargo.toml | head -1
 
       - name: Install dependencies (Ubuntu only)
         if: matrix.platform == 'ubuntu-22.04'
