@@ -4,8 +4,8 @@
 //! Instead of using a sidecar process, we run the HTTP server directly in the app process.
 
 use log::info;
-use std::sync::Arc;
 use std::path::PathBuf;
+use std::sync::Arc;
 
 // Import the server module from bamboo-agent
 use bamboo_agent::server::WebService;

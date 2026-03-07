@@ -1,6 +1,6 @@
 [package]
 name = "bodhi"
-version = "2026.3.3"
+version = "2026.3.11"
 description = "A Tauri App"
 authors = ["bigduu"]
 edition = "2021"
@@ -22,7 +22,8 @@ tauri-build = { workspace = true }
 bamboo-agent = { workspace = true }
 
 # Tauri core and plugins
-tauri = { workspace = true }
+# Enable `devtools` so release builds can open Web Inspector when needed.
+tauri = { workspace = true, features = ["devtools"] }
 
 # Serialization
 serde = { workspace = true }

@@ -5,11 +5,13 @@ use log::{info, LevelFilter};
 use serde_json::Value;
 use std::path::PathBuf;
 use std::sync::Arc;
+use std::time::Duration;
 use tauri::Manager;
 use tauri::{App, Runtime};
 use tauri_plugin_dialog::{DialogExt, MessageDialogButtons, MessageDialogKind};
 use tauri_plugin_global_shortcut::{Code, GlobalShortcutExt, Modifiers, Shortcut};
 use tauri_plugin_log::{Target, TargetKind};
+use tokio::time::sleep;
 
 pub mod app_settings;
 pub mod command;
@@ -80,7 +82,8 @@ fn read_proxy_auth_unified(config: &Value) -> Option<bamboo_agent::core::ProxyAu
     }
 
     // Legacy per-scheme keys (back-compat).
-    read_proxy_auth_from_config(config, "http").or_else(|| read_proxy_auth_from_config(config, "https"))
+    read_proxy_auth_from_config(config, "http")
+        .or_else(|| read_proxy_auth_from_config(config, "https"))
 }
 
 fn bamboo_dir() -> PathBuf {
@@ -102,6 +105,86 @@ fn parse_truthy_flag(raw: &str) -> bool {
     )
 }
 
+fn is_webview_diag_enabled() -> bool {
+    std::env::var("BODHI_WEBVIEW_DIAG")
+        .map(|value| parse_truthy_flag(&value))
+        .unwrap_or(false)
+}
+
+fn should_open_devtools() -> bool {
+    std::env::var("BODHI_OPEN_DEVTOOLS")
+        .map(|value| parse_truthy_flag(&value))
+        .unwrap_or(false)
+}
+
+fn maybe_open_devtools<R: Runtime>(app: &App<R>) {
+    if !should_open_devtools() {
+        return;
+    }
+
+    if let Some(window) = app.get_webview_window("main") {
+        window.open_devtools();
+        log::info!("[webview-diag] Opened devtools for main window");
+    } else {
+        log::warn!("[webview-diag] main window not found for devtools");
+    }
+}
+
+fn schedule_webview_diag<R: Runtime>(app: &App<R>) {
+    if !is_webview_diag_enabled() {
+        return;
+    }
+
+    let app_handle = app.handle().clone();
+    tauri::async_runtime::spawn(async move {
+        sleep(Duration::from_secs(3)).await;
+
+        let Some(window) = app_handle.get_webview_window("main") else {
+            log::warn!("[webview-diag] main window not found");
+            return;
+        };
+
+        // Best-effort diagnostic overlay when the frontend did not mount.
+        let js = r#"
+          (function () {
+            const root = document.getElementById("root");
+            const rootHasContent = !!(
+              root &&
+              (root.childElementCount > 0 || (root.textContent || "").trim().length > 0)
+            );
+
+            const lines = [];
+            lines.push("Bodhi WebView Diagnostics");
+            lines.push("href=" + location.href);
+            lines.push("origin=" + location.origin);
+            lines.push("readyState=" + document.readyState);
+            lines.push("root_present=" + Boolean(root));
+            lines.push("root_has_content=" + rootHasContent);
+            lines.push("script_count=" + document.scripts.length);
+
+            const moduleScript = Array.from(document.scripts).find((s) => s.type === "module");
+            if (moduleScript && moduleScript.src) {
+              lines.push("module_src=" + moduleScript.src);
+            }
+
+            if (!rootHasContent) {
+              document.body.innerHTML =
+                "<pre style='margin:0;padding:16px;white-space:pre-wrap;font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f6f6f6;color:#111;'>" +
+                lines.join("\n") +
+                "</pre>";
+            } else {
+              console.info("[webview-diag] frontend root has content; no overlay injected");
+              console.info("[webview-diag] " + lines.join(" | "));
+            }
+          })();
+        "#;
+
+        if let Err(error) = window.eval(js) {
+            log::warn!("[webview-diag] failed to inject diagnostics: {}", error);
+        }
+    });
+}
+
 fn is_internal_build_mode() -> bool {
     if let Some(compiled_flag) = option_env!("BODHI_INTERNAL_BUILD") {
         return parse_truthy_flag(compiled_flag);
@@ -119,7 +202,10 @@ fn show_internal_startup_confirmation<R: Runtime>(app: &App<R>) {
 
     if let Some(main_window) = app.get_webview_window("main") {
         if let Err(error) = main_window.hide() {
-            log::warn!("Failed to hide main window before startup confirmation: {}", error);
+            log::warn!(
+                "Failed to hide main window before startup confirmation: {}",
+                error
+            );
         }
     }
 
@@ -181,6 +267,8 @@ fn setup<R: Runtime>(app: &mut App<R>) -> std::result::Result<(), Box<dyn std::e
     app.manage(WebServiceState(web_service));
 
     show_internal_startup_confirmation(app);
+    maybe_open_devtools(app);
+    schedule_webview_diag(app);
 
     Ok(())
 }
@@ -306,10 +394,7 @@ async fn set_proxy_config(
         let encrypted = bamboo_agent::core::encryption::encrypt(&auth_json)
             .map_err(|e| format!("Failed to encrypt auth: {}", e))?;
 
-        config_obj.insert(
-            "proxy_auth_encrypted".to_string(),
-            Value::String(encrypted),
-        );
+        config_obj.insert("proxy_auth_encrypted".to_string(), Value::String(encrypted));
     } else {
         config_obj.remove("proxy_auth_encrypted");
     }
