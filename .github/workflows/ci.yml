@@ -10,6 +10,9 @@ env:
   LOTUS_SOURCE: package
   LOTUS_PACKAGE_NAME: "@bigduu/lotus"
   LOTUS_VERSION: latest
+  NPM_CONFIG_AUDIT: "false"
+  NPM_CONFIG_FUND: "false"
+  NPM_CONFIG_PROGRESS: "false"
 
 jobs:
   test-frontend:
@@ -23,9 +26,18 @@ jobs:
         with:
           node-version: lts/*
           cache: "npm"
+          cache-dependency-path: package-lock.json
+
+      - name: Cache node_modules
+        id: cache-node-modules-frontend
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
-        run: npm ci
+        if: steps.cache-node-modules-frontend.outputs.cache-hit != 'true'
+        run: npm ci --prefer-offline --no-audit
 
       - name: Install Lotus package
         run: npm install --no-save "${LOTUS_PACKAGE_NAME}@${LOTUS_VERSION}"
@@ -113,6 +125,7 @@ jobs:
         with:
           node-version: lts/*
           cache: "npm"
+          cache-dependency-path: package-lock.json
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -128,8 +141,16 @@ jobs:
           shared-key: "bodhi-ci-${{ matrix.target }}"
           cache-on-failure: true
 
+      - name: Cache node_modules
+        id: cache-node-modules-build
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+
       - name: Install frontend dependencies
-        run: npm ci
+        if: steps.cache-node-modules-build.outputs.cache-hit != 'true'
+        run: npm ci --prefer-offline --no-audit
 
       - name: Install Lotus package
         shell: bash

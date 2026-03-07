@@ -21,6 +21,9 @@ jobs:
       BAMBOO_CRATE_NAME: "bamboo-agent"
       LOTUS_SOURCE: package
       LOTUS_PACKAGE_NAME: "@bigduu/lotus"
+      NPM_CONFIG_AUDIT: "false"
+      NPM_CONFIG_FUND: "false"
+      NPM_CONFIG_PROGRESS: "false"
     permissions:
       contents: write
     strategy:
@@ -70,6 +73,7 @@ jobs:
         with:
           node-version: lts/*
           cache: "npm"
+          cache-dependency-path: package-lock.json
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -84,6 +88,13 @@ jobs:
           workspaces: "./src-tauri -> target"
           shared-key: "bodhi-release-${{ matrix.target }}"
           cache-on-failure: true
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
 
       - name: Resolve bamboo-agent dependency
         shell: bash
@@ -100,7 +111,8 @@ jobs:
           cargo tree --manifest-path src-tauri/Cargo.toml --locked -p bodhi | grep -m1 "${BAMBOO_CRATE_NAME} v"
 
       - name: Install shell dependencies
-        run: npm ci
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci --prefer-offline --no-audit
 
       - name: Install Lotus package
         shell: bash
