@@ -19,7 +19,8 @@ This directory contains documentation and usage guides for project tools.
 
 ## 📋 Document List
 
-- [`MERMAID_EXAMPLES.md`](./MERMAID_EXAMPLES.md) - Mermaid diagram usage examples and best practices
+- Frontend Mermaid examples moved to Lotus:
+  - [`../../../lotus/docs/tools/MERMAID_EXAMPLES.md`](../../../lotus/docs/tools/MERMAID_EXAMPLES.md)
 
 ## 🔧 Tool Usage Guide
 
@@ -46,10 +47,8 @@ The General Assistant category has access to all 8 tools and can automatically s
 
 ## 🔧 Tool Scope
 
-Covers various tools used in the project:
-- Diagram generation tools (Mermaid)
-- Build and configuration tools
-- Development auxiliary tools
+Covers desktop-shell and backend-adjacent tooling docs in Bodhi.  
+Frontend diagram/UI docs are maintained in Lotus.
 
 ## 🔄 Maintenance
 

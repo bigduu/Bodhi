@@ -163,9 +163,9 @@
 
 ### 🔗 相关链接
 
-- [QuestionDialog 文档](./features/question-dialog/README.md)
-- [QuestionDialog 改进详情](./features/question-dialog/ENHANCEMENT_SUMMARY.md)
-- [CommandSelector 主题改进](./features/command-selector/THEME_SYSTEM_ENHANCEMENT.md)
+- [QuestionDialog 文档](../../lotus/docs/features/question-dialog/README.md)
+- [QuestionDialog 改进详情](../../lotus/docs/features/question-dialog/ENHANCEMENT_SUMMARY.md)
+- [CommandSelector 主题改进](../../lotus/docs/features/command-selector/THEME_SYSTEM_ENHANCEMENT.md)
 
 ---
 

@@ -229,9 +229,9 @@ Potential improvements for future versions:
 
 ## Related Documentation
 
-- [System Prompt Enhancement System](./SYSTEM_PROMPT_ENHANCEMENT.md) (if exists)
+- [System Prompt Implementation Status](./SYSTEM_PROMPT_IMPLEMENTATION_STATUS.md)
 - [Mermaid Enhancement](./MERMAID_ENHANCEMENT.md) (if exists)
-- [Todo Enhancement](./TODO_ENHANCEMENT.md) (if exists)
+- Todo enhancement design documents were archived during docs cleanup.
 
 ## Changelog
 

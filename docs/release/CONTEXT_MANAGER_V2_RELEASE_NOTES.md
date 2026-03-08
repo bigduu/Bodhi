@@ -289,7 +289,7 @@ See [API Documentation](../api/CONTEXT_MANAGER_API.md) for complete API referenc
 ### Updated Documentation
 
 - [README](../README.md)
-- [Development Guide](../development/README.md)
+- [Frontend Development Guide](../../../lotus/docs/development/README.md)
 - [Testing Guide](../testing/README.md)
 
 ---
@@ -332,7 +332,7 @@ Report issues at: [GitHub Issues](https://github.com/your-repo/issues)
 
 - [Architecture Docs](../architecture/)
 - [API Docs](../api/)
-- [OpenSpec Change](../../openspec/changes/refactor-context-session-architecture/)
+- [Context Session Architecture](../architecture/CONTEXT_SESSION_ARCHITECTURE.md)
 
 ### Community
 
@@ -365,4 +365,3 @@ This project is licensed under the MIT License.
 ---
 
 **Thank you for using Context Manager v2.0.0!** 🎉
-

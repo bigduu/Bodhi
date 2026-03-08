@@ -16,7 +16,7 @@ Core design documents for the LLM agent system:
 |----------|-------------|
 | `AGENT_ROLE_SYSTEM_DESIGN.md` | Agent role system architecture |
 | `AGENT_LOOP_IMPLEMENTATION_SUMMARY.md` | Agent loop implementation overview |
-| `AGENT_APPROVAL_FRONTEND_SUMMARY.md` | Frontend approval system design |
+| [`../../../lotus/docs/reports/agent-system/AGENT_APPROVAL_FRONTEND_SUMMARY.md`](../../../lotus/docs/reports/agent-system/AGENT_APPROVAL_FRONTEND_SUMMARY.md) | Frontend approval system design (moved to Lotus) |
 | `COPILOT_AGENT_INTEGRATION_REPORT.md` | Copilot agent integration |
 
 ### `architecture/` - Architecture Decisions

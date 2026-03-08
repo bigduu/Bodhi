@@ -617,11 +617,11 @@ log::error!("Agent loop timeout", {
 
 ## Related Documentation
 
-- [Tool Classification Analysis](../../TOOL_CLASSIFICATION_ANALYSIS.md) - Tool vs Workflow decisions
+- [Tool Classification Analysis](./TOOL_CLASSIFICATION_ANALYSIS.md) - Tool vs Workflow decisions
 - [Workflow System](./WORKFLOW_SYSTEM_ARCHITECTURE.md) - User-invoked workflows
-- [System Prompt Enhancement](./SYSTEM_PROMPT_ENHANCEMENT.md) - How tools are injected
-- [OpenSpec Proposal](../../openspec/changes/refactor-tools-to-llm-agent-mode/proposal.md) - Original design
-- [OpenSpec Design](../../openspec/changes/refactor-tools-to-llm-agent-mode/design.md) - Technical decisions
+- [System Prompt Implementation Status](./SYSTEM_PROMPT_IMPLEMENTATION_STATUS.md) - How tools are injected
+- [Agent LLM Refactor Plan](./AGENT_LLM_REVIEW_AND_REFACTOR_PLAN.md) - Original design
+- [Agent LLM Code Review](./AGENT_LLM_CODE_REVIEW.md) - Technical decisions
 
 ## API Reference
 
@@ -661,4 +661,3 @@ The Agent Loop architecture enables autonomous LLM-driven tool usage while maint
 - **Comprehensive error feedback** to guide LLM
 
 This design balances autonomy with safety, enabling powerful LLM capabilities while keeping users in control of high-risk operations.
-

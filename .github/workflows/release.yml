@@ -76,6 +76,12 @@ jobs:
           cache: "npm"
           cache-dependency-path: package-lock.json
 
+      - name: Verify migration boundary
+        run: npm run web:verify:migration
+
+      - name: Verify docs boundary
+        run: npm run web:verify:docs-boundary
+
       - name: Resolve Bodhi release version
         id: release_version
         shell: bash

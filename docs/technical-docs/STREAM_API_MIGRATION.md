@@ -403,14 +403,13 @@ When removing old API in v0.3.0:
 
 ## Reference Resources
 
-- [Phase 1.5 Completion Summary](openspec/changes/refactor-context-session-architecture/PHASE_1.5_COMPLETION_SUMMARY.md)
-- [Signal-Pull Architecture Specification](openspec/changes/refactor-context-session-architecture/specs/sync/spec.md)
-- [Streaming Tests](crates/context_manager/tests/streaming_tests.rs)
-- [Integration Tests](crates/web_service/tests/signal_pull_integration_tests.rs)
+- [Context Session Architecture](../architecture/CONTEXT_SESSION_ARCHITECTURE.md)
+- [Context Manager Migration](../architecture/context-manager-migration.md)
+- [Testing Guide](../testing/TESTING_GUIDE.md)
+- Streaming and integration test references are maintained in backend repositories.
 
 ---
 
 **Status**: 📋 **Optional Architecture Upgrade**
 **Priority**: 🔵 **Low-Medium** - Existing API works normally, new API provides additional features
 **Recommendation**: Decide whether to upgrade based on requirements. Consider migration if you need Signal-Pull's sequence number tracking and incremental pull features
-

@@ -1,7 +1,7 @@
 {
   "name": "bodhi-shell",
   "private": true,
-  "version": "2026.3.11",
+  "version": "2026.3.12",
   "type": "module",
   "scripts": {
     "dev": "npm --prefix ../lotus run dev",
@@ -13,8 +13,10 @@
     "format": "npm --prefix ../lotus run format",
     "format:check": "npm --prefix ../lotus run format:check",
     "web:dev": "npm --prefix ../lotus run dev",
-    "web:build": "node scripts/lotus-dist.cjs stage",
+    "web:build": "node scripts/lotus-dist.cjs stage && node scripts/lotus-dist.cjs verify:migration && node scripts/lotus-dist.cjs verify:docs-boundary",
     "web:source:info": "node scripts/lotus-dist.cjs info",
+    "web:verify:migration": "node scripts/lotus-dist.cjs verify:migration",
+    "web:verify:docs-boundary": "node scripts/lotus-dist.cjs verify:docs-boundary",
     "web:type-check": "npm --prefix ../lotus run type-check",
     "web:rebrand:public": "node scripts/lotus-dist.cjs rebrand:public",
     "web:rebrand:internal": "node scripts/lotus-dist.cjs rebrand:internal",

@@ -60,10 +60,10 @@ graph TD
 
 #### Component Responsibilities
 
-- **[`Tool`](../../crates/tool_system/src/types/tool.rs) Trait**: The central interface that every tool must implement. It defines the tool's metadata (`definition`) and its core logic (`execute`).
-- **[`ToolDefinition`](../../crates/tool_system/src/types/tool.rs) Struct**: A struct that holds the static information about a tool, such as its name, description, and parameters. This data is used to inform the LLM and the UI.
-- **[`ToolRegistry`](../../crates/tool_system/src/registry/registries.rs) Struct**: A runtime container that holds instances of all registered tools. It is initialized at startup by collecting all `ToolRegistration` instances created at compile time.
-- **[`ToolExecutor`](../../crates/tool_system/src/executor.rs) Struct**: The component responsible for running a tool. It queries the `ToolRegistry` to find the requested tool and then calls its `execute` method.
+- **[`Tool`](../../../bamboo/src/agent/core/tools/registry.rs) Trait**: The central interface that every tool must implement. It defines the tool's metadata and its core logic (`execute`).
+- **[`ToolSchema`](../../../bamboo/src/agent/core/tools/types.rs) Struct**: A struct that holds tool schema information (name, description, parameters) used to inform the LLM and the UI.
+- **[`ToolRegistry`](../../../bamboo/src/agent/core/tools/registry.rs) Struct**: A runtime container that holds instances of all registered tools.
+- **[`ToolExecutor`](../../../bamboo/src/agent/core/tools/executor.rs) Trait**: The component interface responsible for running a tool call and listing tool schemas.
 - **`inventory` Crate**: A third-party crate that enables automatic, compile-time registration. The `auto_register_tool!` macro uses `inventory::submit!` to add a `ToolRegistration` struct to a global, static collection.
 
 ### 2.2. Data Flow: From Registration to Execution

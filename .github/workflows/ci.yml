@@ -28,6 +28,12 @@ jobs:
           cache: "npm"
           cache-dependency-path: package-lock.json
 
+      - name: Verify migration boundary
+        run: npm run web:verify:migration
+
+      - name: Verify docs boundary
+        run: npm run web:verify:docs-boundary
+
       - name: Cache node_modules
         id: cache-node-modules-frontend
         uses: actions/cache@v4
@@ -126,6 +132,12 @@ jobs:
           node-version: lts/*
           cache: "npm"
           cache-dependency-path: package-lock.json
+
+      - name: Verify migration boundary
+        run: npm run web:verify:migration
+
+      - name: Verify docs boundary
+        run: npm run web:verify:docs-boundary
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable

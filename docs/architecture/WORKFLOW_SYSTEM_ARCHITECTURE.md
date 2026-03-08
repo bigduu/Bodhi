@@ -692,8 +692,8 @@ Response (Error):
 ## Related Documentation
 
 - [Agent Loop Architecture](./AGENT_LOOP_ARCHITECTURE.md) - LLM-driven tool system
-- [Tool Classification Analysis](../../TOOL_CLASSIFICATION_ANALYSIS.md) - Tool vs Workflow decisions
-- [OpenSpec Proposal](../../openspec/changes/refactor-tools-to-llm-agent-mode/proposal.md) - Original design
+- [Tool Classification Analysis](./TOOL_CLASSIFICATION_ANALYSIS.md) - Tool vs Workflow decisions
+- [Agent LLM Refactor Plan](./AGENT_LLM_REVIEW_AND_REFACTOR_PLAN.md) - Original design
 
 ## Future Enhancements
 
@@ -736,4 +736,3 @@ The Workflow System provides:
 - **Good UX**: Form-based parameter input with validation
 
 This system complements the LLM-driven Tool System, providing a complete solution for both autonomous and user-controlled operations.
-

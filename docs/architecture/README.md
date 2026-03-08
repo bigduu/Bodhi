@@ -10,8 +10,9 @@ This directory contains project architecture design and system enhancement docum
 - [`context_manager_fsm_plan.md`](./context_manager_fsm_plan.md) - Finite State Machine design
 - [`context_manager_plan.md`](./context_manager_plan.md) - Original planning document
 
-### Frontend Architecture
-- [`FRONTEND_ARCHITECTURE.md`](./FRONTEND_ARCHITECTURE.md) - Frontend system design
+### Frontend and Interaction Architecture
+- Frontend architecture moved to Lotus:
+  - [`../../../lotus/docs/architecture/FRONTEND_ARCHITECTURE.md`](../../../lotus/docs/architecture/FRONTEND_ARCHITECTURE.md)
 - [`AGENT_LOOP_ARCHITECTURE.md`](./AGENT_LOOP_ARCHITECTURE.md) - Agent interaction loop
 - [`WORKFLOW_SYSTEM_ARCHITECTURE.md`](./WORKFLOW_SYSTEM_ARCHITECTURE.md) - Workflow system design
 
@@ -31,7 +32,7 @@ This directory contains project architecture design and system enhancement docum
 
 ### For New Developers
 1. Start with [`CONTEXT_SESSION_ARCHITECTURE.md`](./CONTEXT_SESSION_ARCHITECTURE.md) to understand the core system
-2. Read [`FRONTEND_ARCHITECTURE.md`](./FRONTEND_ARCHITECTURE.md) for frontend structure
+2. Read [`../../../lotus/docs/architecture/FRONTEND_ARCHITECTURE.md`](../../../lotus/docs/architecture/FRONTEND_ARCHITECTURE.md) for frontend structure
 3. Review [`tools-system.md`](./tools-system.md) for tool development
 
 ### For Migration
@@ -71,5 +72,5 @@ Architecture documentation should be updated as the system evolves to ensure con
 
 - [API Documentation](../api/) - REST API and SSE event reference
 - [Release Notes](../release/) - Version history and changelogs
-- [OpenSpec Changes](../../openspec/changes/) - Structured change proposals
+- [Migration Notes](../migration/) - Structured change and rollout notes
 - [Development Guides](../development/) - Development workflows and guidelines

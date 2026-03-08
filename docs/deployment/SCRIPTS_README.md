@@ -20,7 +20,7 @@
 ./test-static-serving.sh
 ```
 
-**详细文档**：参见 [TESTING_GUIDE.md](./TESTING_GUIDE.md)
+**详细文档**：参见 [TESTING_GUIDE.md](../testing/TESTING_GUIDE.md)
 
 ---
 
@@ -37,7 +37,7 @@
 ./cleanup-server.sh
 ```
 
-**详细文档**：参见 [TESTING_GUIDE.md](./TESTING_GUIDE.md)
+**详细文档**：参见 [TESTING_GUIDE.md](../testing/TESTING_GUIDE.md)
 
 ---
 
@@ -60,7 +60,7 @@ npm run build
 
 ## 文档
 
-- **[TESTING_GUIDE.md](./TESTING_GUIDE.md)** - 详细的测试和进程管理指南
+- **[TESTING_GUIDE.md](../testing/TESTING_GUIDE.md)** - 详细的测试和进程管理指南
 - **[DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md)** - 前端部署完整指南
 - **[IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md)** - 实现技术细节
 
@@ -80,18 +80,18 @@ npm run build
 然后重新运行测试。
 
 ### Q: 如何手动测试？
-**A**: 参见 [TESTING_GUIDE.md](./TESTING_GUIDE.md) 中的"常见使用场景"部分。
+**A**: 参见 [TESTING_GUIDE.md](../testing/TESTING_GUIDE.md) 中的"常见使用场景"部分。
 
 ## 最佳实践
 
 1. ✅ **使用自动化脚本**：`./test-static-serving.sh` 而不是手动启动
 2. ✅ **定期清理**：每天下班前运行 `./cleanup-server.sh`
 3. ✅ **遇到端口占用先清理**：不要换端口，先清理残留进程
-4. ✅ **阅读文档**：详细说明都在 [TESTING_GUIDE.md](./TESTING_GUIDE.md)
+4. ✅ **阅读文档**：详细说明都在 [TESTING_GUIDE.md](../testing/TESTING_GUIDE.md)
 
 ## 问题反馈
 
 如果遇到问题：
-1. 查看 [TESTING_GUIDE.md](./TESTING_GUIDE.md) 的故障排查部分
+1. 查看 [TESTING_GUIDE.md](../testing/TESTING_GUIDE.md) 的故障排查部分
 2. 检查日志：`/tmp/web_service_test.log`
 3. 运行清理脚本：`./cleanup-server.sh`

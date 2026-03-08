@@ -424,8 +424,7 @@ See [Context Manager Migration](./context-manager-migration.md) for detailed mig
 
 ## References
 
-- [OpenSpec Change](../../openspec/changes/refactor-context-session-architecture/README.md)
-- [Design Document](../../openspec/changes/refactor-context-session-architecture/design.md)
-- [Tasks](../../openspec/changes/refactor-context-session-architecture/tasks.md)
 - [Context Manager Migration](./context-manager-migration.md)
-
+- [Context Manager Architecture Plan](./context_manager_plan.md)
+- [Context Manager FSM Plan](./context_manager_fsm_plan.md)
+- [Release Notes](../release/CONTEXT_MANAGER_V2_RELEASE_NOTES.md)

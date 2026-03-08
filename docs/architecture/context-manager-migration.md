@@ -316,6 +316,5 @@ localStorageMigrator.rollbackFromBackup();
 ## References
 
 - [Context Manager FSM Plan](./context_manager_fsm_plan.md)
-- [System Prompt Management](../reports/system_prompt_management.md)
-- [Migration Implementation Summary](../../openspec/changes/migrate-frontend-to-context-manager/IMPLEMENTATION_SUMMARY.md)
-
+- [System Prompt Persistence Design](./SYSTEM_PROMPT_PERSISTENCE_DESIGN.md)
+- [Migration Complete](../migration/MIGRATION_COMPLETE.md)

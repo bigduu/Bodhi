@@ -35,8 +35,10 @@ bodhi/
 ├── scripts/                # Lotus source/rebrand helpers
 ├── docs/                   # Bodhi-specific documentation
 ├── e2e-backend/            # backend fixtures/helpers
-└── src/                    # legacy mirrored frontend files (not source of truth)
+└── .lotus-dist/            # staged Lotus frontend assets consumed by Tauri
 ```
+
+Legacy frontend mirror files are intentionally removed from Bodhi root (`src/`, `public/`, `index.html`, Vite/TS configs). Frontend source of truth lives in Lotus only.
 
 ## Prerequisites
 
@@ -58,6 +60,7 @@ Useful commands:
 npm run tauri:build         # build desktop app
 npm run web:build           # stage Lotus dist into .lotus-dist
 npm run web:source:info     # print Lotus source resolution
+npm run web:verify:migration # fail if legacy frontend mirror files reappear
 npm run type-check          # delegates to ../lotus
 npm run test:run            # delegates to ../lotus Vitest
 npm run test:e2e            # delegates to ../lotus/e2e

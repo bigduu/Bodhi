@@ -5,8 +5,8 @@ This directory contains project configuration documentation, covering system pro
 ## 📋 Document List
 
 ### System Configuration
-- [`updated-prompts-review.md`](./updated-prompts-review.md) - System prompt review and updates
-- [`final-tech-stack-update.md`](./final-tech-stack-update.md) - Final tech stack update summary
+- [`AGENT_CONFIGURATION.md`](./AGENT_CONFIGURATION.md) - Agent runtime and prompt configuration
+- [`DEFAULT_OPENAI_MODE.md`](./DEFAULT_OPENAI_MODE.md) - Default OpenAI mode configuration
 
 ### Service Configuration
 - [`DEFAULT_OPENAI_MODE.md`](./DEFAULT_OPENAI_MODE.md) - Default OpenAI mode configuration
