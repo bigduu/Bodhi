@@ -87,6 +87,20 @@ function runNpmScript(prefix, script) {
   fail(`Failed to run npm script "${script}" in ${prefix}`);
 }
 
+function hasNpmScript(prefix, script) {
+  const packageJsonPath = path.join(prefix, "package.json");
+  if (!fs.existsSync(packageJsonPath)) {
+    return false;
+  }
+
+  try {
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+    return Boolean(packageJson && packageJson.scripts && packageJson.scripts[script]);
+  } catch {
+    return false;
+  }
+}
+
 function copyDist(sourceDist) {
   if (!dirExists(sourceDist)) {
     fail(`Lotus dist directory not found: ${sourceDist}`);
@@ -168,6 +182,12 @@ function runLocalOnly(script) {
 function runRebrand(script) {
   const resolved = resolveSource();
   if (resolved.mode === "local") {
+    if (!hasNpmScript(LOCAL_PATH, script)) {
+      console.log(
+        `ℹ️ Skipping "${script}" because local Lotus at ${LOCAL_PATH} does not define this script.`,
+      );
+      return;
+    }
     runNpmScript(LOCAL_PATH, script);
     return;
   }
