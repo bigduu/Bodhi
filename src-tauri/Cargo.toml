@@ -1,6 +1,6 @@
 [package]
 name = "bodhi"
-version = "2026.3.40"
+version = "2026.3.42"
 description = "A Tauri App"
 authors = ["bigduu"]
 edition = "2021"
