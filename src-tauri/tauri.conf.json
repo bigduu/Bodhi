@@ -18,6 +18,8 @@
         "height": 800,
         "decorations": true,
         "transparent": false,
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true,
         "center": true,
         "visible": true,
         "alwaysOnTop": false,

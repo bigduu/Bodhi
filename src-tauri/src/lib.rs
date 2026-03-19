@@ -398,6 +398,21 @@ async fn set_proxy_config(
     Ok(())
 }
 
+#[tauri::command]
+fn set_window_theme(window: tauri::WebviewWindow, theme: String) -> Result<(), String> {
+    let normalized = theme.trim().to_ascii_lowercase();
+    let target_theme = match normalized.as_str() {
+        "light" => Some(tauri::Theme::Light),
+        "dark" => Some(tauri::Theme::Dark),
+        "system" | "" => None,
+        _ => return Err(format!("Unsupported theme '{}'", theme)),
+    };
+
+    window
+        .set_theme(target_theme)
+        .map_err(|error| format!("Failed to set window theme: {}", error))
+}
+
 /// Toggle main window visibility - show if hidden, hide if visible
 fn toggle_main_window<R: Runtime>(app: &tauri::AppHandle<R>) {
     if let Some(window) = app.get_webview_window("main") {
@@ -458,6 +473,7 @@ pub fn run() {
             get_proxy_config,
             mark_setup_incomplete,
             set_proxy_config,
+            set_window_theme,
         ])
         .build(tauri::generate_context!())
         .expect("error while building tauri application")
