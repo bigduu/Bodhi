@@ -12,6 +12,7 @@
     },
     "shell:default",
     "process:default",
-    "process:allow-exit"
+    "process:allow-exit",
+    "core:webview:allow-set-webview-zoom"
   ]
 }
