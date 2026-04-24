@@ -1,6 +1,7 @@
 use crate::command::copy::copy_to_clipboard;
 use crate::embedded::EmbeddedWebService;
-use bamboo_agent::infrastructure::{Config, ProxyAuth};
+use bamboo_agent::core::ProxyAuth;
+use bamboo_agent::Config;
 use chrono::{SecondsFormat, Utc};
 use log::{info, LevelFilter};
 use std::sync::Arc;
