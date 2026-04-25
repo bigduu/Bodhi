@@ -517,7 +517,6 @@ dependencies = [
  "actix-web",
  "aes-gcm",
  "anyhow",
- "arboard",
  "async-stream",
  "async-trait",
  "bamboo-agent-core",
@@ -629,7 +628,6 @@ name = "bamboo-engine"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "arboard",
  "async-trait",
  "bamboo-agent-core",
  "bamboo-compression",
@@ -749,7 +747,6 @@ dependencies = [
  "bamboo-infrastructure",
  "bamboo-memory",
  "bamboo-tools",
- "base64 0.22.1",
  "bytes",
  "chrono",
  "chrono-tz",
@@ -765,7 +762,6 @@ dependencies = [
  "reqwest-eventsource",
  "reqwest-middleware",
  "reqwest-retry",
- "rust_ocr",
  "serde",
  "serde_json",
  "serde_yaml",
@@ -787,7 +783,6 @@ name = "bamboo-tools"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "arboard",
  "async-trait",
  "bamboo-agent-core",
  "bamboo-compression",
