@@ -1967,7 +1967,7 @@ function DocsPage({
 
 function App() {
   const hashParts = window.location.hash.split('?')
-  const hashPath = hashParts[0].replace(/#/g, '') || '/'
+  const hashPath = hashParts[0].replace(/^#/, '').split('#')[0] || '/'
   const currentPath = hashPath.replace(/\/+$/, '') || '/'
   const isDocsRoute = currentPath === '/docs' || currentPath.startsWith('/docs/')
   const isDownloadRoute = currentPath === '/download' || currentPath.startsWith('/download/')
