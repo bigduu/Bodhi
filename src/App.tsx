@@ -1130,7 +1130,9 @@ const translations: Record<Locale, Translation> = {
 }
 
 function getInitialLocale(): Locale {
-  const queryLocale = new URLSearchParams(window.location.search).get('lang')
+  const hash = window.location.hash
+  const hashQuery = hash.split('?')[1] || ''
+  const queryLocale = new URLSearchParams(hashQuery).get('lang')
   if (queryLocale === 'zh' || queryLocale === 'en') {
     return queryLocale
   }
@@ -1976,10 +1978,6 @@ function App() {
   useEffect(() => {
     window.localStorage.setItem(LANGUAGE_STORAGE_KEY, locale)
     document.documentElement.lang = locale === 'zh' ? 'zh-CN' : 'en'
-
-    const url = new URL(window.location.href)
-    url.searchParams.set('lang', locale)
-    window.history.replaceState({}, '', `${url.pathname}${url.hash.split('?')[0]}?${url.searchParams.toString()}`)
   }, [locale])
 
   useEffect(() => {
