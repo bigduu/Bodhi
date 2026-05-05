@@ -1148,7 +1148,7 @@ function buildUrl(pathname: string, locale: Locale, hash?: string): string {
   const base = import.meta.env.BASE_URL || '/'
   const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base
   const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`
-  return `${cleanBase}${cleanPath}?lang=${locale}${suffix}`
+  return `${cleanBase}/#${cleanPath}?lang=${locale}${suffix}`
 }
 
 function useReveal<T extends HTMLElement>(startVisible = false) {
@@ -1961,7 +1961,8 @@ function DocsPage({
 }
 
 function App() {
-  const currentPath = window.location.pathname.replace(/\/+$/, '') || '/'
+  const hashPath = window.location.hash.split('?')[0].replace('#', '') || '/'
+  const currentPath = hashPath.replace(/\/+$/, '') || '/'
   const isDocsRoute = currentPath === '/docs' || currentPath.startsWith('/docs/')
   const isDownloadRoute = currentPath === '/download' || currentPath.startsWith('/download/')
   const isFeaturesRoute = currentPath === '/features' || currentPath.startsWith('/features/')
@@ -1974,7 +1975,7 @@ function App() {
 
     const url = new URL(window.location.href)
     url.searchParams.set('lang', locale)
-    window.history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`)
+    window.history.replaceState({}, '', `${url.pathname}${url.hash.split('?')[0]}?${url.searchParams.toString()}`)
   }, [locale])
 
   useEffect(() => {
