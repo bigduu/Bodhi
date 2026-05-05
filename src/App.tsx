@@ -148,9 +148,9 @@ type Translation = {
 }
 
 const LANGUAGE_STORAGE_KEY = 'pavilion-locale'
-const BODHI_GITHUB_URL = 'https://github.com/bigduu/Bodhi'
-const BODHI_RELEASES_URL = 'https://github.com/bigduu/Bodhi/releases'
-const BODHI_LATEST_RELEASE_URL = 'https://github.com/bigduu/Bodhi/releases/latest'
+const BODHI_GITHUB_URL = 'https://github.com/bigduu/Bodhi-AI'
+const BODHI_RELEASES_URL = 'https://github.com/bigduu/Bodhi-AI/releases'
+const BODHI_LATEST_RELEASE_URL = 'https://github.com/bigduu/Bodhi-AI/releases/latest'
 
 const quickstartCode = String.raw`# clone the public stack side-by-side
 mkdir bodhi-stack && cd bodhi-stack
@@ -1145,7 +1145,10 @@ function getInitialLocale(): Locale {
 
 function buildUrl(pathname: string, locale: Locale, hash?: string): string {
   const suffix = hash ? `#${hash}` : ''
-  return `${pathname}?lang=${locale}${suffix}`
+  const base = import.meta.env.BASE_URL || '/'
+  const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base
+  const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`
+  return `${cleanBase}${cleanPath}?lang=${locale}${suffix}`
 }
 
 function useReveal<T extends HTMLElement>(startVisible = false) {
