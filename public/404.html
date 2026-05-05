@@ -4,28 +4,29 @@
   <meta charset="utf-8">
   <title>Redirecting...</title>
   <script>
-    // Get the path without the base path
+    // Simple redirect to hash routing
     var path = window.location.pathname;
+    var query = window.location.search || '';
     var base = '/bodhi/';
 
-    // Remove base path if present
-    if (path.startsWith(base)) {
-      path = path.substring(base.length - 1);
+    // Remove base path
+    if (path.indexOf(base) === 0) {
+      path = path.substring(base.length);
     }
 
     // Ensure path starts with /
-    if (!path.startsWith('/')) {
+    if (path && !path.startsWith('/')) {
       path = '/' + path;
     }
 
-    // Get query string
-    var query = window.location.search || '';
+    // Build redirect URL
+    var redirectUrl = base + '#' + path + query;
 
-    // Redirect to hash routing
-    window.location.href = base + '#' + path + query;
+    // Redirect immediately
+    window.location.replace(redirectUrl);
   </script>
 </head>
 <body>
-  <p>Redirecting to <a href="/bodhi/#/">/bodhi/#/</a>...</p>
+  <p>Redirecting...</p>
 </body>
 </html>
