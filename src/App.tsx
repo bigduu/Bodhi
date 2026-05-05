@@ -1146,7 +1146,8 @@ function getInitialLocale(): Locale {
 function buildUrl(pathname: string, locale: Locale, hash?: string): string {
   const base = import.meta.env.BASE_URL || '/'
   const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base
-  const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`
+  let cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`
+  cleanPath = cleanPath === '/' ? '' : cleanPath
   if (hash) {
     return `${cleanBase}/#${cleanPath}#${hash}?lang=${locale}`
   }
