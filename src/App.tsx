@@ -287,21 +287,21 @@ const translations: Record<Locale, Translation> = {
           kicker: 'System Settings',
           title: '统一设置中心',
           badge: 'Settings',
-          imageSrc: '/screenshots/bodhi-system-settings-provider.png',
+          imageSrc: '/bodhi/screenshots/bodhi-system-settings-provider.png',
           imageAlt: 'Bodhi System Settings 界面截图',
         },
         {
           kicker: 'MCP',
           title: 'MCP 扩展管理',
           badge: 'MCP',
-          imageSrc: '/screenshots/bodhi-mcp.png',
+          imageSrc: '/bodhi/screenshots/bodhi-mcp.png',
           imageAlt: 'Bodhi MCP 界面截图',
         },
         {
           kicker: 'Metrics',
           title: '使用指标统计',
           badge: 'Metrics',
-          imageSrc: '/screenshots/bodhi-metrics.png',
+          imageSrc: '/bodhi/screenshots/bodhi-metrics.png',
           imageAlt: 'Bodhi Metrics 界面截图',
         },
       ],
@@ -397,7 +397,7 @@ const translations: Record<Locale, Translation> = {
             '技能系统：可浏览、可检索的能力层，让产品边界清晰可见',
             '使用指标：历史使用汇总和效率信号，强化长期使用心智',
           ],
-          imageSrc: '/screenshots/bodhi-system-settings-provider.png',
+          imageSrc: '/bodhi/screenshots/bodhi-system-settings-provider.png',
           imageAlt: 'Bodhi 桌面设置中心',
         },
         {
@@ -431,7 +431,7 @@ const translations: Record<Locale, Translation> = {
             '多窗格交互：同时查看对话、工具输出和任务状态',
             '会话管理：历史会话可追溯，支持回看和复用',
           ],
-          imageSrc: '/screenshots/bodhi-workbench.png',
+          imageSrc: '/bodhi/screenshots/bodhi-workbench.png',
           imageAlt: 'Bodhi 工作台界面',
         },
         {
@@ -447,7 +447,7 @@ const translations: Record<Locale, Translation> = {
             '工具发现：自动发现已连接 MCP Server 提供的工具',
             'Provider 兼容接口：支持 OpenAI、Anthropic、Gemini 等前缀',
           ],
-          imageSrc: '/screenshots/bodhi-mcp.png',
+          imageSrc: '/bodhi/screenshots/bodhi-mcp.png',
           imageAlt: 'Bodhi MCP 管理界面',
         },
         {
@@ -463,7 +463,7 @@ const translations: Record<Locale, Translation> = {
             'Session 管理：查看历史执行，回溯和复用',
             '执行历史：完整的运行记录和结果追踪',
           ],
-          imageSrc: '/screenshots/bodhi-overview.png',
+          imageSrc: '/bodhi/screenshots/bodhi-overview.png',
           imageAlt: 'Bodhi 自动化概览',
         },
         {
@@ -477,7 +477,7 @@ const translations: Record<Locale, Translation> = {
             '可搜索的能力索引',
             '技能执行状态追踪',
           ],
-          imageSrc: '/screenshots/bodhi-skills.png',
+          imageSrc: '/bodhi/screenshots/bodhi-skills.png',
           imageAlt: 'Bodhi 技能系统',
         },
         {
@@ -748,21 +748,21 @@ const translations: Record<Locale, Translation> = {
           kicker: 'System Settings',
           title: 'Unified settings center',
           badge: 'Settings',
-          imageSrc: '/screenshots/bodhi-system-settings-provider.png',
+          imageSrc: '/bodhi/screenshots/bodhi-system-settings-provider.png',
           imageAlt: 'Bodhi System Settings screenshot',
         },
         {
           kicker: 'MCP',
           title: 'MCP extensibility',
           badge: 'MCP',
-          imageSrc: '/screenshots/bodhi-mcp.png',
+          imageSrc: '/bodhi/screenshots/bodhi-mcp.png',
           imageAlt: 'Bodhi MCP screenshot',
         },
         {
           kicker: 'Metrics',
           title: 'Usage analytics',
           badge: 'Metrics',
-          imageSrc: '/screenshots/bodhi-metrics.png',
+          imageSrc: '/bodhi/screenshots/bodhi-metrics.png',
           imageAlt: 'Bodhi Metrics screenshot',
         },
       ],
@@ -858,7 +858,7 @@ const translations: Record<Locale, Translation> = {
             'Skill system: browsable, searchable capability layer',
             'Usage metrics: historical summaries and efficiency signals',
           ],
-          imageSrc: '/screenshots/bodhi-system-settings-provider.png',
+          imageSrc: '/bodhi/screenshots/bodhi-system-settings-provider.png',
           imageAlt: 'Bodhi desktop settings center',
         },
         {
@@ -892,7 +892,7 @@ const translations: Record<Locale, Translation> = {
             'Multi-pane interaction: view conversation, tool output, and task state simultaneously',
             'Session management: historical sessions are traceable and reusable',
           ],
-          imageSrc: '/screenshots/bodhi-workbench.png',
+          imageSrc: '/bodhi/screenshots/bodhi-workbench.png',
           imageAlt: 'Bodhi workbench interface',
         },
         {
@@ -908,7 +908,7 @@ const translations: Record<Locale, Translation> = {
             'Tool discovery: automatically discover tools from connected MCP servers',
             'Provider-compatible endpoints: supports OpenAI, Anthropic, Gemini prefixes',
           ],
-          imageSrc: '/screenshots/bodhi-mcp.png',
+          imageSrc: '/bodhi/screenshots/bodhi-mcp.png',
           imageAlt: 'Bodhi MCP management interface',
         },
         {
@@ -924,7 +924,7 @@ const translations: Record<Locale, Translation> = {
             'Session management: view history, trace back, and reuse past executions',
             'Execution history: complete run records and result tracking',
           ],
-          imageSrc: '/screenshots/bodhi-overview.png',
+          imageSrc: '/bodhi/screenshots/bodhi-overview.png',
           imageAlt: 'Bodhi automation overview',
         },
         {
@@ -938,7 +938,7 @@ const translations: Record<Locale, Translation> = {
             'Searchable capability index',
             'Skill execution state tracking',
           ],
-          imageSrc: '/screenshots/bodhi-skills.png',
+          imageSrc: '/bodhi/screenshots/bodhi-skills.png',
           imageAlt: 'Bodhi skill system',
         },
         {
@@ -1353,14 +1353,14 @@ function HomePage({
               </div>
               <img
                 className="hero-product-image"
-                src="/screenshots/bodhi-system-settings-provider.png"
+                src="/bodhi/screenshots/bodhi-system-settings-provider.png"
                 alt={locale === 'zh' ? 'Bodhi System Settings 界面截图' : 'Bodhi System Settings screenshot'}
                 loading="eager"
               />
               <div className="hero-product-inset">
                 <img
                   className="hero-product-inset-image"
-                  src="/screenshots/bodhi-skills.png"
+                  src="/bodhi/screenshots/bodhi-skills.png"
                   alt={locale === 'zh' ? 'Bodhi Skills 界面截图' : 'Bodhi skills inset'}
                   loading="lazy"
                 />
@@ -1667,27 +1667,27 @@ function DownloadPage({
             {
               title: 'System Settings 总览',
               description: '展示 Bodhi 已经具备完整的设置中心。',
-              src: '/screenshots/bodhi-system-settings-provider.png',
+              src: '/bodhi/screenshots/bodhi-system-settings-provider.png',
             },
             {
               title: 'Env Vars',
               description: '环境变量注入和 secret 管理。',
-              src: '/screenshots/bodhi-env-vars.png',
+              src: '/bodhi/screenshots/bodhi-env-vars.png',
             },
             {
               title: 'Metrics',
               description: '使用统计和效率指标。',
-              src: '/screenshots/bodhi-metrics.png',
+              src: '/bodhi/screenshots/bodhi-metrics.png',
             },
             {
               title: 'MCP',
               description: '外部扩展能力配置界面。',
-              src: '/screenshots/bodhi-mcp.png',
+              src: '/bodhi/screenshots/bodhi-mcp.png',
             },
             {
               title: 'Skills',
               description: '技能系统浏览和检索。',
-              src: '/screenshots/bodhi-skills.png',
+              src: '/bodhi/screenshots/bodhi-skills.png',
             },
           ],
         }
@@ -1721,27 +1721,27 @@ function DownloadPage({
             {
               title: 'System Settings overview',
               description: 'A real settings center, not just a chat entry point.',
-              src: '/screenshots/bodhi-system-settings-provider.png',
+              src: '/bodhi/screenshots/bodhi-system-settings-provider.png',
             },
             {
               title: 'Env Vars',
               description: 'Environment variable management and secret handling.',
-              src: '/screenshots/bodhi-env-vars.png',
+              src: '/bodhi/screenshots/bodhi-env-vars.png',
             },
             {
               title: 'Metrics',
               description: 'Usage analytics and efficiency summaries.',
-              src: '/screenshots/bodhi-metrics.png',
+              src: '/bodhi/screenshots/bodhi-metrics.png',
             },
             {
               title: 'MCP',
               description: 'External extensibility configuration surface.',
-              src: '/screenshots/bodhi-mcp.png',
+              src: '/bodhi/screenshots/bodhi-mcp.png',
             },
             {
               title: 'Skills',
               description: 'Browsable, searchable capability layer.',
-              src: '/screenshots/bodhi-skills.png',
+              src: '/bodhi/screenshots/bodhi-skills.png',
             },
           ],
         }
