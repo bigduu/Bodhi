@@ -1,0 +1,66 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="72" x2="1060" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0D1730"/>
+      <stop offset="1" stop-color="#050B16"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="222" y1="188" x2="444" y2="410" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C8CFF"/>
+      <stop offset="1" stop-color="#5E6AD2"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(976 118) rotate(90) scale(182 296)">
+      <stop stop-color="#22C55E" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#22C55E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(212 126) rotate(90) scale(220 360)">
+      <stop stop-color="#7C8CFF" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#7C8CFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="0" y="0" width="1200" height="630" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="20"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" rx="28" fill="url(#bg)"/>
+  <ellipse cx="975" cy="118" rx="296" ry="182" fill="url(#glowA)" filter="url(#blur)"/>
+  <ellipse cx="212" cy="126" rx="360" ry="220" fill="url(#glowB)" filter="url(#blur)"/>
+
+  <rect x="82" y="82" width="1036" height="466" rx="30" fill="rgba(11,19,34,0.72)" stroke="rgba(143,164,191,0.16)"/>
+
+  <g>
+    <rect x="120" y="124" width="82" height="82" rx="22" fill="url(#accent)"/>
+    <path d="M152.8 177.2V152.4H173.6C182 152.4 187.2 157.2 187.2 164.8C187.2 172.4 182 177.2 173.6 177.2H152.8ZM167.2 169.2H172.8C176.4 169.2 178.8 167.6 178.8 164.8C178.8 162 176.4 160.4 172.8 160.4H167.2V169.2Z" fill="white"/>
+    <text x="222" y="155" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="26" font-weight="700">Bodhi</text>
+    <text x="222" y="191" fill="#9FB2FF" font-family="Inter, sans-serif" font-size="18" font-weight="600">Local AI agent for real work</text>
+  </g>
+
+  <text x="120" y="284" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="64" font-weight="800">
+    Your AI should do more
+  </text>
+  <text x="120" y="352" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="64" font-weight="800">
+    than answer.
+  </text>
+  <text x="120" y="420" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="64" font-weight="800">
+    It should move work forward.
+  </text>
+
+  <text x="120" y="486" fill="#C7D5E7" font-family="Inter, sans-serif" font-size="24" font-weight="500">
+    Powered by Bamboo and Lotus · Visible execution · MCP extensibility
+  </text>
+
+  <g>
+    <rect x="816" y="210" width="244" height="228" rx="24" fill="rgba(19,31,54,0.92)" stroke="rgba(124,140,255,0.18)"/>
+    <rect x="840" y="238" width="116" height="30" rx="15" fill="rgba(124,140,255,0.14)" stroke="rgba(124,140,255,0.24)"/>
+    <text x="860" y="258" fill="#ADB7FF" font-family="Inter, sans-serif" font-size="14" font-weight="700">Live task stream</text>
+    <rect x="980" y="238" width="56" height="30" rx="15" fill="rgba(34,197,94,0.14)" stroke="rgba(34,197,94,0.24)"/>
+    <text x="998" y="258" fill="#90F0AE" font-family="Inter, sans-serif" font-size="14" font-weight="700">SSE</text>
+
+    <circle cx="850" cy="310" r="7" fill="#22C55E"/>
+    <text x="870" y="315" fill="#C7D5E7" font-family="Inter, sans-serif" font-size="15" font-weight="600">Plan created and streamed back</text>
+
+    <circle cx="850" cy="354" r="7" fill="#7C8CFF"/>
+    <text x="870" y="359" fill="#C7D5E7" font-family="Inter, sans-serif" font-size="15" font-weight="600">MCP tools connected into execution</text>
+
+    <circle cx="850" cy="398" r="7" fill="#F97316"/>
+    <text x="870" y="403" fill="#C7D5E7" font-family="Inter, sans-serif" font-size="15" font-weight="600">Workflow queued for scheduled rerun</text>
+  </g>
+</svg>
