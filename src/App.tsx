@@ -1129,6 +1129,70 @@ const translations: Record<Locale, Translation> = {
   },
 }
 
+const HOME_SECTION_IDS = new Set(['why-bodhi', 'capabilities', 'faq'])
+const DOC_SECTION_IDS = new Set(translations.en.docs.sections.map((section) => section.id))
+const FEATURE_SECTION_IDS = new Set(translations.en.features.sections.map((section) => section.id))
+const TOP_LEVEL_ROUTES = new Set(['/', '/docs', '/download', '/features'])
+
+type RouteState = {
+  path: string
+  section?: string
+}
+
+function normalizePath(pathname: string): string {
+  const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`
+  return normalizedPath.replace(/\/+$/, '') || '/'
+}
+
+function resolvePathFromSection(section?: string): string {
+  if (!section) {
+    return '/'
+  }
+
+  if (DOC_SECTION_IDS.has(section)) {
+    return '/docs'
+  }
+
+  if (FEATURE_SECTION_IDS.has(section)) {
+    return '/features'
+  }
+
+  if (HOME_SECTION_IDS.has(section)) {
+    return '/'
+  }
+
+  return '/'
+}
+
+function parseHashRoute(hash: string): RouteState {
+  const rawHash = hash.startsWith('#') ? hash.slice(1) : hash
+  const rawBeforeQuery = rawHash.split('?')[0] || ''
+  const [rawPathPart = '', rawSectionPart] = rawBeforeQuery.split('#', 2)
+
+  if (rawPathPart.startsWith('/')) {
+    return {
+      path: normalizePath(rawPathPart),
+      section: rawSectionPart || undefined,
+    }
+  }
+
+  const maybeTopLevelPath = rawPathPart ? normalizePath(rawPathPart) : '/'
+
+  if (TOP_LEVEL_ROUTES.has(maybeTopLevelPath)) {
+    return {
+      path: maybeTopLevelPath,
+      section: rawSectionPart || undefined,
+    }
+  }
+
+  const inferredSection = rawSectionPart || rawPathPart || undefined
+
+  return {
+    path: resolvePathFromSection(inferredSection),
+    section: inferredSection,
+  }
+}
+
 function getInitialLocale(): Locale {
   const hash = window.location.hash
   const hashQuery = hash.split('?')[1] || ''
@@ -1966,14 +2030,24 @@ function DocsPage({
 }
 
 function App() {
-  const hashParts = window.location.hash.split('?')
-  const hashPath = hashParts[0].replace(/^#/, '').split('#')[0] || '/'
-  const currentPath = hashPath.replace(/\/+$/, '') || '/'
+  const [route, setRoute] = useState<RouteState>(() => parseHashRoute(window.location.hash))
+  const [locale, setLocale] = useState<Locale>(getInitialLocale)
+  const content = useMemo(() => translations[locale], [locale])
+  const currentPath = route.path
   const isDocsRoute = currentPath === '/docs' || currentPath.startsWith('/docs/')
   const isDownloadRoute = currentPath === '/download' || currentPath.startsWith('/download/')
   const isFeaturesRoute = currentPath === '/features' || currentPath.startsWith('/features/')
-  const [locale, setLocale] = useState<Locale>(getInitialLocale)
-  const content = useMemo(() => translations[locale], [locale])
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setRoute(parseHashRoute(window.location.hash))
+    }
+
+    window.addEventListener('hashchange', handleHashChange)
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange)
+    }
+  }, [])
 
   useEffect(() => {
     window.localStorage.setItem(LANGUAGE_STORAGE_KEY, locale)
@@ -1991,6 +2065,26 @@ function App() {
           ? content.meta.featuresTitle
           : content.meta.homeTitle
   }, [content, isDocsRoute, isDownloadRoute, isFeaturesRoute, locale])
+
+  useEffect(() => {
+    if (!route.section) {
+      if (route.path === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+      return
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      const target = document.getElementById(route.section ?? '')
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    })
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+    }
+  }, [route])
 
   return isDocsRoute ? (
     <DocsPage locale={locale} setLocale={setLocale} content={content} />
