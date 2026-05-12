@@ -304,6 +304,20 @@ const translations: Record<Locale, Translation> = {
           imageSrc: '/bodhi/screenshots/bodhi-metrics.png',
           imageAlt: 'Bodhi Metrics 界面截图',
         },
+        {
+          kicker: 'Workflow',
+          title: '工作流编排',
+          badge: 'Workflow',
+          imageSrc: '/bodhi/screenshots/bodhi-workflows.png',
+          imageAlt: 'Bodhi 工作流界面截图',
+        },
+        {
+          kicker: 'Schedule',
+          title: '定时调度',
+          badge: 'Schedule',
+          imageSrc: '/bodhi/screenshots/bodhi-schedule.png',
+          imageAlt: 'Bodhi 调度界面截图',
+        },
       ],
     },
     capabilities: {
@@ -543,7 +557,7 @@ const translations: Record<Locale, Translation> = {
             'Bodhi 是主产品形态；Lotus 是它的交互层；Bamboo 是本地 Agent runtime 与执行引擎。这个分工让产品、能力和架构都更容易被用户理解。',
             '如果你是第一次接触，建议先从"第一次运行"开始；如果你已经把 Bodhi 当成长期工具，再继续阅读进阶玩法和开发者章节。',
           ],
-          bullets: ['首页：价值表达与转化入口', '文档：上手、扩展、集成', 'Bodhi 产品 → Bamboo 引擎 → Lotus 界面'],
+          bullets: ['首页：价值表达与转化入口', '文档：上手、扩展、集成', 'Bodhi 产品 → Bamboo 引擎 → Lotus 界面', '📖 完整教程：[Bodhi 用户指南](../articles/bodhi-user-guide.md)'],
         },
         {
           id: 'first-run',
@@ -764,6 +778,20 @@ const translations: Record<Locale, Translation> = {
           badge: 'Metrics',
           imageSrc: '/bodhi/screenshots/bodhi-metrics.png',
           imageAlt: 'Bodhi Metrics screenshot',
+        },
+        {
+          kicker: 'Workflow',
+          title: 'Workflow authoring',
+          badge: 'Workflow',
+          imageSrc: '/bodhi/screenshots/bodhi-workflows.png',
+          imageAlt: 'Bodhi Workflow screenshot',
+        },
+        {
+          kicker: 'Schedule',
+          title: 'Scheduled automation',
+          badge: 'Schedule',
+          imageSrc: '/bodhi/screenshots/bodhi-schedule.png',
+          imageAlt: 'Bodhi Schedule screenshot',
         },
       ],
     },
@@ -1734,7 +1762,7 @@ function DownloadPage({
           screenshotDescription:
             '这些截图直接来自真实运行中的 Bodhi。真实产品界面比抽象插画更有说服力。',
           screenshotNote:
-            '这组官方截图优先展示设置中心、环境变量、指标、MCP 与技能系统等更能体现产品深度的功能面。',
+            '这组官方截图优先展示设置中心、环境变量、指标、MCP、技能系统、会话摘要、工作流与调度等更能体现产品深度的功能面。',
           screenshots: [
             {
               title: 'System Settings 总览',
@@ -1760,6 +1788,21 @@ function DownloadPage({
               title: 'Skills',
               description: '技能系统浏览和检索。',
               src: '/bodhi/screenshots/bodhi-skills.png',
+            },
+            {
+              title: 'Session Summary',
+              description: '会话摘要与代码变更追踪，实时查看 Agent 执行结果。',
+              src: '/bodhi/screenshots/bodhi-session-summary.png',
+            },
+            {
+              title: 'Workflow',
+              description: '工作流编排与复用，将成功执行保存为可复用模板。',
+              src: '/bodhi/screenshots/bodhi-workflows.png',
+            },
+            {
+              title: 'Schedule',
+              description: '定时调度，让工作流按设定周期自动运行。',
+              src: '/bodhi/screenshots/bodhi-schedule.png',
             },
           ],
         }
@@ -1788,7 +1831,7 @@ function DownloadPage({
           screenshotDescription:
             'These images come from a real Bodhi instance. Real product screens prove the product is already working.',
           screenshotNote:
-            'This set focuses on deeper surfaces: settings, env vars, metrics, MCP, and skills.',
+            'This set focuses on deeper surfaces: settings, env vars, metrics, MCP, skills, session summaries, workflows, and schedules.',
           screenshots: [
             {
               title: 'System Settings overview',
@@ -1814,6 +1857,21 @@ function DownloadPage({
               title: 'Skills',
               description: 'Browsable, searchable capability layer.',
               src: '/bodhi/screenshots/bodhi-skills.png',
+            },
+            {
+              title: 'Session Summary',
+              description: 'Session summaries with code diff tracking, see agent execution results in real time.',
+              src: '/bodhi/screenshots/bodhi-session-summary.png',
+            },
+            {
+              title: 'Workflow',
+              description: 'Workflow authoring and reuse, save successful executions as reusable templates.',
+              src: '/bodhi/screenshots/bodhi-workflows.png',
+            },
+            {
+              title: 'Schedule',
+              description: 'Scheduled automation, let workflows run automatically on a recurring basis.',
+              src: '/bodhi/screenshots/bodhi-schedule.png',
             },
           ],
         }
