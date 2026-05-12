@@ -112,6 +112,12 @@ bodhi/
 - Windows
 - Linux
 
+**设置中心预览**：
+
+![Bodhi Provider 配置](../public/screenshots/bodhi-provider-settings.png)
+
+*多 Provider 配置界面，支持 OpenAI、Anthropic、GitHub Copilot 等*
+
 ---
 
 ### 3. Lotus - UI 交互层
@@ -147,6 +153,16 @@ const response = await fetch('/api/v1/chat', {
   body: JSON.stringify({ message, session_id: sessionId })
 });
 ```
+
+**Lotus 界面一览**：
+
+![Bodhi 会话摘要与代码变更](../public/screenshots/bodhi-session-summary.png)
+
+*会话摘要面板展示消息统计、工具调用次数和代码变更追踪*
+
+![Bodhi 工具执行与 Diff 视图](../public/screenshots/bodhi-tool-steps.png)
+
+*工具执行链与代码 Diff 视图，实时查看 Agent 执行结果*
 
 ---
 
@@ -380,6 +396,16 @@ MCP Server（外部扩展）
   ↓
 持续自动化
 ```
+
+**界面预览**：
+
+![Bodhi 工作流编排](../public/screenshots/bodhi-workflows.png)
+
+*工作流编辑器，将成功执行保存为可复用模板*
+
+![Bodhi 定时调度](../public/screenshots/bodhi-schedule.png)
+
+*调度配置界面，支持周期性自动执行*
 
 ---
 

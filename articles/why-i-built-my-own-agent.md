@@ -137,6 +137,12 @@ Bodhi 其实就是围绕这五件事逐渐长出来的。
 
 这件事会直接决定一个 Agent 在第 30 轮、第 50 轮、第 100 轮时还是不是同一个 Agent。
 
+**上下文可视化**：
+
+![Bodhi 会话摘要](../public/screenshots/bodhi-session-summary.png)
+
+*会话摘要面板展示消息统计、工具调用、错误追踪和代码变更，帮助用户理解 Agent 的完整工作状态*
+
 ---
 
 ## Agent Loop：不是多轮对话，而是带边界的行动闭环
@@ -217,6 +223,12 @@ Bodhi 的很多设计，其实都是围绕一句话展开的：
 
 在我看来，这是 built-in tools 真正能成为系统能力的前提。
 
+**工具执行界面**：
+
+![Bodhi 工具执行与代码 Diff](../public/screenshots/bodhi-tool-steps.png)
+
+*工具执行链展示，每个工具调用可展开查看详细结果与代码变更*
+
 ---
 
 ## MCP：扩展边界很重要，但不能拿它代替地基
@@ -237,6 +249,12 @@ MCP 这件事，我是很认同的。它几乎是现在 Agent 生态里最关键
 - **MCP 负责外部能力扩展**
 
 这意味着 Bodhi 既不是一个封闭系统，也不是一个只会把问题外包给插件生态的壳。它更像是一个有自己内核、同时又愿意向外生长的 Agent。
+
+**MCP 扩展配置**：
+
+![Bodhi MCP 管理界面](../public/screenshots/bodhi-mcp-new.png)
+
+*MCP 服务器管理界面，支持添加、刷新、导入/导出配置*
 
 ---
 
@@ -259,6 +277,12 @@ Skill 也是 Bodhi 里我很重视的一层。
 - 哪些行为不应该发生
 
 我想做的不是一个"什么都懂一点"的 Agent。我更想做一个**在不同任务面前，会切换到更合适工作模式的 Agent**。
+
+**技能系统界面**：
+
+![Bodhi 技能系统](../public/screenshots/bodhi-skills-new.png)
+
+*技能列表与开关控制，每个技能对应一种专业工作模式*
 
 ---
 
@@ -337,6 +361,16 @@ Codex 把这件事主要交给模型判断；Bodhi 则在系统层面多做了�
 如果要用一句更简洁的话来概括：
 
 **Codex 和 Claude Code 让我看到了 Agent 已经能做到什么；OpenClaw 让我看到开源社区在努力追赶；Bodhi 则是在回答，我想把 Agent 设计成什么。**
+
+**自动化能力**：
+
+![Bodhi 工作流编排](../public/screenshots/bodhi-workflows.png)
+
+*工作流编辑器，将成功经验保存为可复用模板*
+
+![Bodhi 定时调度](../public/screenshots/bodhi-schedule.png)
+
+*调度配置，让 Agent 按设定周期自动执行任务*
 
 ---
 
